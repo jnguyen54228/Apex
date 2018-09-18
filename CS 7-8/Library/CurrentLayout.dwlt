@@ -410,7 +410,11 @@ MonoBehaviour:
   m_LastFolders:
   - Assets
   m_LastFoldersGridSize: 16
+<<<<<<< HEAD
   m_LastProjectPath: C:\Apex\CS 7-8
+=======
+  m_LastProjectPath: C:\gitKRAKEN\Apex\CS 7-8
+>>>>>>> parent of 7d05f70... Auto stash before merge of "master" and "origin/master"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
