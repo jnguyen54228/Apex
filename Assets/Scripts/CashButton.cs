@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class CashButton : MonoBehaviour {
+public class CashButton : NetworkBehaviour {
 
-    int cash = 0;
     public GameObject cashText;
 
 	// Use this for initialization
@@ -20,7 +20,7 @@ public class CashButton : MonoBehaviour {
 
     public void cashButton()
     {
-        cash++;
-        cashText.GetComponent<Text>().text = "" + cash;
+        DataBase.cash++;
+        cashText.GetComponent<Text>().text = "" + DataBase.cash;
     }
 }
