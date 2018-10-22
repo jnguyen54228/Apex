@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PurchaseScreen : MonoBehaviour {
+public class PurchaseScreen : MonoBehaviour
+{
 
     public GameObject purchaseScreen;
     public GameObject buildingName;
@@ -15,18 +16,25 @@ public class PurchaseScreen : MonoBehaviour {
     private int apartmentBuildingPrice = 50;
     private int tradeCenterPrice = 75;
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Use this for initialization
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnMouseDown()
     {
-        if(gameObject.name == "Office Building")
+        if (DataBase.highlightBuildingTest == true)
+        {
+            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
+        if (gameObject.name == "Office Building")
         {
             buildingPrice.GetComponent<Text>().text = "$" + officeBuildingPrice;
             DataBase.currentBuildingPrice = officeBuildingPrice;
@@ -44,14 +52,18 @@ public class PurchaseScreen : MonoBehaviour {
             DataBase.currentBuildingPrice = apartmentBuildingPrice;
             DataBase.currentBuilding = gameObject.name;
         }
-        else if(gameObject.name == "Trade Center 1" || gameObject.name == "Trade Center 2")
+        else if (gameObject.name == "Trade Center 1" || gameObject.name == "Trade Center 2")
         {
             buildingPrice.GetComponent<Text>().text = "$" + tradeCenterPrice;
             DataBase.currentBuildingPrice = tradeCenterPrice;
             DataBase.currentBuilding = gameObject.name;
         }
-        buildingName.GetComponent<Text>().text = gameObject.name;
-        buildingImage.GetComponent<Image>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        purchaseScreen.SetActive(true);
+
+            buildingName.GetComponent<Text>().text = gameObject.name;
+            buildingImage.GetComponent<Image>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+            purchaseScreen.SetActive(true);
+            DataBase.highlightBuildingTest = true;
+            DataBase.previousBuilding = gameObject;
+        }
     }
-}

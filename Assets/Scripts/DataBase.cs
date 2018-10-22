@@ -8,6 +8,8 @@ public class DataBase : MonoBehaviour {
     public static int cash = 100;
     public static int currentBuildingPrice;
     public static string currentBuilding;
+    public static bool highlightBuildingTest = false;
+    public static GameObject previousBuilding;
 
 
     public static bool officeBought = false;
