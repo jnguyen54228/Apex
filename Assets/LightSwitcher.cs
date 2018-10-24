@@ -19,19 +19,17 @@ public class LightSwitcher : MonoBehaviour {
 		
 	}
 
-     void OnMouseDown()
+    public void OnSwitch()
     {
-        if(gameObject.name == "Off Switch")
-        {
-            lightBulb.GetComponent<Image>().color = Color.yellow;
-            switchOn.SetActive(true);
-            switchOff.SetActive(false);
-        }
-        else if(gameObject.name == "On Switch")
-        {
-            lightBulb.GetComponent<Image>().color = Color.white;
-            switchOff.SetActive(true);
-            switchOn.SetActive(false);
-        }
+        switchOn.SetActive(false);
+        switchOff.SetActive(true);
+        lightBulb.GetComponent<Image>().color = Color.white;
+    }
+
+    public void OffSwitch()
+    {
+        switchOff.SetActive(false);
+        switchOn.SetActive(true);
+        lightBulb.GetComponent<Image>().color = Color.yellow;
     }
 }
