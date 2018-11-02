@@ -11,6 +11,15 @@ public class PurchaseButton : NetworkBehaviour
     public GameObject purchaseButton;
     public GameObject purchaseButtonText;
 
+    IList<Building> buildingsList = new List<Building>() {
+
+        new Building(){ buildingName = "Office", buildingBought = false, buildingPrice = 20},
+        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30},
+        new Building(){ buildingName = "Apartment1", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Apartment2", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Trade Center1", buildingBought = false, buildingPrice = 75},
+        new Building(){ buildingName = "Trade Center2", buildingBought = false, buildingPrice = 75}
+    };
 
     [SyncVar]
     private bool officeBought = false;
@@ -116,5 +125,14 @@ public class PurchaseButton : NetworkBehaviour
                 tradeCenter2Bought = true;
             }
         }
+    }
+
+    public class Building
+    {
+        public string buildingName { get; set; }
+
+        public bool buildingBought { get; set; }
+
+        public int buildingPrice { get; set; }
     }
 }
