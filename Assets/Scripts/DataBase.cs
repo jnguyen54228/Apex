@@ -11,7 +11,6 @@ public class DataBase : MonoBehaviour {
     public static bool highlightBuildingTest = false;
     public static GameObject previousBuilding;
 
-
     public static bool officeBought = false;
     public static bool convienienceStoreBought = false;
     public static bool apartmentBuilding1Bought = false;
