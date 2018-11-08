@@ -100,11 +100,9 @@ public class PurchaseButton : NetworkBehaviour
                 {
                     CmdSendBuildingBought(officeBought, DataBase.officeBought);
                 }
-                else
-                {
-                    DataBase.officeBought = true;
-                    officeBought = true;
-                }
+
+                DataBase.officeBought = true;
+                officeBought = true;
             }
             else if(DataBase.currentBuilding == "Convienience Store")
             {
