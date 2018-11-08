@@ -190,6 +190,52 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1001 &14643060
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167793579832904, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1334162879100988, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &20171118
 GameObject:
   m_ObjectHideFlags: 0
@@ -17228,6 +17274,52 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1001 &1308410433
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970024462235810, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1160487677723954, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1311097453
 GameObject:
   m_ObjectHideFlags: 0
@@ -17357,12 +17449,15 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 1562393284856310, guid: 37d96fa59f745fd4caa71400e7af71b5,
+    type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1160487677723954, guid: 4fedff7ac327b66458242ca31764e527, type: 2}
+  - {fileID: 1334162879100988, guid: 9676a2cebc2f3694dae63fe7bf6ec35e, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
