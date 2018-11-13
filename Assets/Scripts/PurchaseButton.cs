@@ -98,11 +98,13 @@ public class PurchaseButton : NetworkBehaviour
             {
                 if (!isServer) //if the client buys the building, sends that info up to the server
                 {
-                    CmdSendBuildingBought(officeBought, DataBase.officeBought);
+                    CmdSendBuildingBought();
                 }
-
-                DataBase.officeBought = true;
-                officeBought = true;
+                else if (isServer)
+                {
+                    DataBase.officeBought = true;
+                    officeBought = true;
+                }
             }
             else if(DataBase.currentBuilding == "Convienience Store")
             {
@@ -133,12 +135,10 @@ public class PurchaseButton : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSendBuildingBought(bool buildingBoughtScript, bool buildingBoughtGlobal) {
+    public void CmdSendBuildingBought() {
 
-        buildingBoughtScript = true;
-        buildingBoughtGlobal = true;
-        Debug.Log(buildingBoughtScript);
-        Debug.Log(buildingBoughtGlobal);
+        DataBase.officeBought = true;
+        officeBought = true;
     }
 
     public class Building
