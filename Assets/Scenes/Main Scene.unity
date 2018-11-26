@@ -668,6 +668,11 @@ Prefab:
       propertyPath: m_Name
       value: Cube 2
       objectReference: {fileID: 0}
+    - target: {fileID: 54845336556187562, guid: 0db8127010b87c745a33704d1f4317eb,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114084488717822312, guid: 0db8127010b87c745a33704d1f4317eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0db8127010b87c745a33704d1f4317eb, type: 2}

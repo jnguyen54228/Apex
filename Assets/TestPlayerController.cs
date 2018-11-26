@@ -6,12 +6,12 @@ using UnityEngine.Networking;
 public class TestPlayerController : NetworkBehaviour {
 
     void Start() {
-        if (!isServer)
-        {
+        if (!isServer) { 
+        
             CmdChangeName("Player 2");
         }
         else if (isServer) {
-            CmdChangeName("Player 1");
+            RpcUpdateName("Player 1");
         }
 
     }
