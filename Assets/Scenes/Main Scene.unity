@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 767295386}
   - component: {fileID: 767295385}
   - component: {fileID: 767295384}
+  - component: {fileID: 767295387}
   m_Layer: 5
   m_Name: Button 2
   m_TagString: Untagged
@@ -463,9 +464,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114084488717822312, guid: 0db8127010b87c745a33704d1f4317eb,
-          type: 2}
-        m_MethodName: ButtonPress2
+      - m_Target: {fileID: 767295387}
+        m_MethodName: ButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -510,6 +510,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 767295382}
+--- !u!114 &767295387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 767295382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a3708f30bb74f4289914c9a21a6432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &834412689
 Prefab:
   m_ObjectHideFlags: 0
@@ -657,7 +668,8 @@ Prefab:
       propertyPath: m_Name
       value: Cube 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114084488717822312, guid: 0db8127010b87c745a33704d1f4317eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0db8127010b87c745a33704d1f4317eb, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1086853890
@@ -761,7 +773,8 @@ Prefab:
       propertyPath: m_Name
       value: Cube 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114084488717822312, guid: 0db8127010b87c745a33704d1f4317eb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0db8127010b87c745a33704d1f4317eb, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1117317908
@@ -986,6 +999,7 @@ GameObject:
   - component: {fileID: 1538931573}
   - component: {fileID: 1538931572}
   - component: {fileID: 1538931571}
+  - component: {fileID: 1538931574}
   m_Layer: 5
   m_Name: Button 1
   m_TagString: Untagged
@@ -1051,9 +1065,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114084488717822312, guid: 0db8127010b87c745a33704d1f4317eb,
-          type: 2}
-        m_MethodName: ButtonPress1
+      - m_Target: {fileID: 1538931574}
+        m_MethodName: ButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1098,6 +1111,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1538931569}
+--- !u!114 &1538931574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1538931569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a3708f30bb74f4289914c9a21a6432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1784285387
 GameObject:
   m_ObjectHideFlags: 0
