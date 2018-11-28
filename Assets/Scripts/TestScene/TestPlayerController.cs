@@ -6,8 +6,7 @@ using UnityEngine.Networking;
 public class TestPlayerController : NetworkBehaviour {
 
     void Start() {
-        if (!isServer) { 
-        
+        if (!isServer && hasAuthority) {
             CmdChangeName("Player 2");
         }
         else if (isServer) {
@@ -18,11 +17,11 @@ public class TestPlayerController : NetworkBehaviour {
 
     void Update() {
         if (TestCubeScript.button1Press == true) {
-            if (!isServer) {
+            if (!isServer && hasAuthority) {
                 CmdMoveCube(new Vector2(transform.position.x, transform.position.y + 1));
                 TestCubeScript.button1Press = false;
             }
-            else {
+            else if(isServer){
                 RpcUpdateCube(new Vector2(transform.position.x, transform.position.y + 1));
                 TestCubeScript.button1Press = false;
             }

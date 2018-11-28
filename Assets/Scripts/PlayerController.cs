@@ -5,13 +5,21 @@ using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour {
 
-	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		
+        if (DataBase.officeBought == true && !isServer && hasAuthority) {
+
+            CmdUpdateBuildingPurchase(DataBase.officeBought);
+            
+        }
 	}
+
+    [Command]
+    void CmdUpdateBuildingPurchase(bool building) {
+        building = true;
+        Debug.Log("test");
+    }
 }

@@ -43,6 +43,10 @@ public class PurchaseButton : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (DataBase.officeBought == true) {
+            officeBought = true;
+        }
+
         if (DataBase.currentBuilding == "Office Building" && officeBought == true)
         {
             purchaseButton.GetComponent<Button>().interactable = false;
@@ -96,15 +100,8 @@ public class PurchaseButton : NetworkBehaviour
 
             if(DataBase.currentBuilding == "Office Building")
             {
-                if (!isServer) //if the client buys the building, sends that info up to the server
-                {
-                    CmdSendBuildingBought();
-                }
-                else if (isServer)
-                {
-                    DataBase.officeBought = true;
-                    officeBought = true;
-                }
+                DataBase.officeBought = true;
+                officeBought = true;
             }
             else if(DataBase.currentBuilding == "Convienience Store")
             {
@@ -132,13 +129,6 @@ public class PurchaseButton : NetworkBehaviour
                 tradeCenter2Bought = true;
             }
         }
-    }
-
-    [Command]
-    public void CmdSendBuildingBought() {
-
-        DataBase.officeBought = true;
-        officeBought = true;
     }
 
     public class Building
