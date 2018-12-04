@@ -5,11 +5,9 @@ using UnityEngine.Networking;
 
 public class TestPlayerController : NetworkBehaviour {
 
-    private bool test;
+    private bool test = false;
 
     void Start() {
-
-        test = false;
 
         if (!isServer && hasAuthority) {
             CmdChangeName("Player 2");
@@ -17,22 +15,26 @@ public class TestPlayerController : NetworkBehaviour {
         else if (isServer) {
             RpcUpdateName("Player 1");
         }
-
     }
 
     void Update() {
 
-        if (isServer) {
-            Debug.Log(test);
+        if (test == true)
+        {
+            Debug.Log("sdfdsfds");
+        }
+        else {
+            Debug.Log("someting else"); //test keeps alternating being true and false
         }
 
         if (TestCubeScript.button1Press == true) {
             if (!isServer && hasAuthority) {
-                CmdTest(test);
+                CmdTest();
                 CmdMoveCube(new Vector2(transform.position.x, transform.position.y + 1));
                 TestCubeScript.button1Press = false;
             }
             else if(isServer){
+
                 RpcUpdateCube(new Vector2(transform.position.x, transform.position.y + 1));
                 TestCubeScript.button1Press = false;
             }
@@ -40,14 +42,14 @@ public class TestPlayerController : NetworkBehaviour {
     }
 
     [Command]
-    void CmdTest(bool t)
+    void CmdTest()
     {
-        RpcUpdateTest(t);
+        RpcUpdateTest();
     }
 
     [ClientRpc]
-    void RpcUpdateTest(bool y) {
-        y = true;
+    void RpcUpdateTest() {
+        test = true;
     }
 
     [Command]
