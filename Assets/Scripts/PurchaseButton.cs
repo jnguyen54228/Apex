@@ -46,6 +46,26 @@ public class PurchaseButton : NetworkBehaviour
         if (DataBase.officeBought == true) {
             officeBought = true;
         }
+        if (DataBase.convienienceStoreBought == true)
+        {
+            convienienceStoreBought = true;
+        }
+        if (DataBase.apartmentBuilding1Bought == true)
+        {
+            apartmentBuilding1Bought = true;
+        }
+        if (DataBase.apartmentBuilding2Bought == true)
+        {
+            apartmentBuilding2Bought = true;
+        }
+        if (DataBase.tradeCenter1Bought == true)
+        {
+            tradeCenter1Bought = true;
+        }
+        if (DataBase.tradeCenter2Bought == true)
+        {
+            tradeCenter2Bought = true;
+        }
 
         if (DataBase.currentBuilding == "Office Building" && officeBought == true)
         {

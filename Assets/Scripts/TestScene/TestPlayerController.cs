@@ -19,14 +19,6 @@ public class TestPlayerController : NetworkBehaviour {
 
     void Update() {
 
-        if (test == true)
-        {
-            Debug.Log("sdfdsfds");
-        }
-        else {
-            Debug.Log("someting else"); //test keeps alternating being true and false
-        }
-
         if (TestCubeScript.button1Press == true) {
             if (!isServer && hasAuthority) {
                 CmdTest();
