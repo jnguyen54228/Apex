@@ -18,6 +18,16 @@ public class DataBase : MonoBehaviour {
     public static bool tradeCenter1Bought = false;
     public static bool tradeCenter2Bought = false;
 
+    public static IList<Building> buildingsList = new List<Building>() {
+
+        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20},
+        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
+    };
+
     // Use this for initialization
     void Start () {
 		
@@ -27,4 +37,13 @@ public class DataBase : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public class Building
+    {
+        public string buildingName { get; set; }
+
+        public bool buildingBought { get; set; }
+
+        public int buildingPrice { get; set; }
+    }
 }

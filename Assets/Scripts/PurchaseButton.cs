@@ -13,12 +13,12 @@ public class PurchaseButton : NetworkBehaviour
 
     IList<Building> buildingsList = new List<Building>() {
 
-        new Building(){ buildingName = "Office", buildingBought = false, buildingPrice = 20},
+        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20},
         new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30},
-        new Building(){ buildingName = "Apartment1", buildingBought = false, buildingPrice = 50},
-        new Building(){ buildingName = "Apartment2", buildingBought = false, buildingPrice = 50},
-        new Building(){ buildingName = "Trade Center1", buildingBought = false, buildingPrice = 75},
-        new Building(){ buildingName = "Trade Center2", buildingBought = false, buildingPrice = 75}
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
     };
 
     [SyncVar]
@@ -35,15 +35,20 @@ public class PurchaseButton : NetworkBehaviour
     private bool tradeCenter2Bought = false;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         purchaseButton.GetComponent<Button>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (DataBase.officeBought == true) {
+        for (int i = 0; i < buildingsList.Count; i++) {
+            if (DataBase.buildingsList[i].buildingBought == true) {
+                buildingsList[i].buildingBought = true;
+            }
+        }
+
+        /*if (DataBase.officeBought == true) {
             officeBought = true;
         }
         if (DataBase.convienienceStoreBought == true)
@@ -65,9 +70,17 @@ public class PurchaseButton : NetworkBehaviour
         if (DataBase.tradeCenter2Bought == true)
         {
             tradeCenter2Bought = true;
+        } */
+
+        for (int c = 0; c < buildingsList.Count; c++) {
+            if (DataBase.currentBuilding == buildingsList[c].buildingName && buildingsList[c].buildingBought == true) {
+                purchaseButton.GetComponent<Button>().interactable = false;
+                purchaseButton.GetComponent<Image>().color = Color.gray;
+                purchaseButtonText.GetComponent<Text>().text = "SOLD";
+            }
         }
 
-        if (DataBase.currentBuilding == "Office Building" && officeBought == true)
+        /*if (DataBase.currentBuilding == "Office Building" && officeBought == true)
         {
             purchaseButton.GetComponent<Button>().interactable = false;
             purchaseButton.GetComponent<Image>().color = Color.gray;
@@ -108,7 +121,7 @@ public class PurchaseButton : NetworkBehaviour
             purchaseButton.GetComponent<Button>().interactable = true;
             purchaseButton.GetComponent<Image>().color = Color.white;
             purchaseButtonText.GetComponent<Text>().text = "Purchase";
-        }
+        }*/
     }
 
     public void PurchaseBuilding()
@@ -118,7 +131,14 @@ public class PurchaseButton : NetworkBehaviour
             DataBase.cash -= DataBase.currentBuildingPrice;
             cashText.GetComponent<Text>().text = DataBase.cash.ToString();
 
-            if(DataBase.currentBuilding == "Office Building")
+            for (int ii = 0; ii < buildingsList.Count; ii++) {
+                if (DataBase.currentBuilding == buildingsList[ii].buildingName) {
+                    DataBase.buildingsList[ii].buildingBought = true;
+                    buildingsList[ii].buildingBought = true;
+                }
+            }
+
+            /*if(DataBase.currentBuilding == "Office Building")
             {
                 DataBase.officeBought = true;
                 officeBought = true;
@@ -147,7 +167,7 @@ public class PurchaseButton : NetworkBehaviour
             {
                 DataBase.tradeCenter2Bought = true;
                 tradeCenter2Bought = true;
-            }
+            }*/
         }
     }
 
