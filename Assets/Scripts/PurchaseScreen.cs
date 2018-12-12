@@ -11,10 +11,15 @@ public class PurchaseScreen : MonoBehaviour
     public GameObject buildingImage;
     public GameObject buildingPrice;
 
-    private int officeBuildingPrice = 20;
-    private int convienienceStorePrice = 30;
-    private int apartmentBuildingPrice = 50;
-    private int tradeCenterPrice = 75;
+    IList<Building> buildingsList = new List<Building>() {
+
+        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20},
+        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
+    };
 
     // Use this for initialization
     void Start()
@@ -34,7 +39,7 @@ public class PurchaseScreen : MonoBehaviour
             DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white;
         }
 
-        if (gameObject.name == "Office Building")
+        /*if (gameObject.name == "Office Building")
         {
             buildingPrice.GetComponent<Text>().text = "$" + officeBuildingPrice;
             DataBase.currentBuildingPrice = officeBuildingPrice;
@@ -57,13 +62,30 @@ public class PurchaseScreen : MonoBehaviour
             buildingPrice.GetComponent<Text>().text = "$" + tradeCenterPrice;
             DataBase.currentBuildingPrice = tradeCenterPrice;
             DataBase.currentBuilding = gameObject.name;
+        }*/
+
+        for (int i = 0; i < buildingsList.Count; i++) {
+            if (gameObject.name == buildingsList[i].buildingName) {
+                buildingPrice.GetComponent<Text>().text = "$" + buildingsList[i].buildingPrice;
+                DataBase.currentBuildingPrice = buildingsList[i].buildingPrice;
+                DataBase.currentBuilding = gameObject.name;
+            }
         }
 
-            buildingName.GetComponent<Text>().text = gameObject.name;
-            buildingImage.GetComponent<Image>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-            purchaseScreen.SetActive(true);
-            DataBase.highlightBuildingTest = true;
-            DataBase.previousBuilding = gameObject;
+        buildingName.GetComponent<Text>().text = gameObject.name;
+        buildingImage.GetComponent<Image>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        purchaseScreen.SetActive(true);
+        DataBase.highlightBuildingTest = true;
+        DataBase.previousBuilding = gameObject;
         }
+
+    public class Building
+    {
+        public string buildingName { get; set; }
+
+        public bool buildingBought { get; set; }
+
+        public int buildingPrice { get; set; }
     }
+}

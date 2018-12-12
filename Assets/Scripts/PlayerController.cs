@@ -12,12 +12,22 @@ public class PlayerController : NetworkBehaviour {
     private bool tradeCenter1Bought = false;
     private bool tradeCenter2Bought = false;
 
+    IList<Building> buildingsList = new List<Building>() {
+
+        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20},
+        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
+    };
+
     void Start () {
 		
 	}
 	
 	void Update () {
-        if (DataBase.officeBought == true && !isServer && hasAuthority) {
+        /*if (DataBase.officeBought == true && !isServer && hasAuthority) {
             CmdUpdateBuildingPurchase("office"); 
         }
         if (DataBase.convienienceStoreBought == true && !isServer && hasAuthority) {
@@ -38,10 +48,16 @@ public class PlayerController : NetworkBehaviour {
         if (DataBase.tradeCenter2Bought == true && !isServer && hasAuthority)
         {
             CmdUpdateBuildingPurchase("trade center 2");
+        }*/
+
+        for (int i = 0; i < buildingsList.Count; i++) {
+            if (DataBase.buildingsList[i].buildingBought == true && !isServer && hasAuthority) {
+                CmdUpdateBuildingPurchaseOnServer(i);
+            }
         }
 
         if (isServer) {
-            if(officeBought == true) {
+            /*if(officeBought == true) {
                 DataBase.officeBought = true;
             }
             if (convienienceStoreBought == true)
@@ -63,13 +79,27 @@ public class PlayerController : NetworkBehaviour {
             if (tradeCenter2Bought == true)
             {
                 DataBase.tradeCenter2Bought = true;
+            }*/
+
+            for (int c = 0; c < buildingsList.Count; c++) {
+                if (buildingsList[c].buildingBought == true) {
+                    DataBase.buildingsList[c].buildingBought = true;
+                }
+            }
+
+            for (int ii = 0; ii < buildingsList.Count; ii++)
+            {
+                if (DataBase.buildingsList[ii].buildingBought == true)
+                {
+                    buildingsList[ii].buildingBought = true;
+                }
             }
         }
 	}
 
     [Command]
-    void CmdUpdateBuildingPurchase(string building) {
-        if (building == "office")
+    void CmdUpdateBuildingPurchaseOnServer(int building) {
+        /*if (building == "office")
         {
             officeBought = true;
         }
@@ -91,6 +121,22 @@ public class PlayerController : NetworkBehaviour {
         else if (building == "trade center 2")
         {
             tradeCenter2Bought = true;
-        }
+        }*/
+
+        buildingsList[building].buildingBought = true;
+    }
+
+    [ClientRpc]
+    void RpcUpdateBuildingPurchaseOnClient(int building) {
+        buildingsList[building].buildingBought = true;
+    }
+
+    public class Building
+    {
+        public string buildingName { get; set; }
+
+        public bool buildingBought { get; set; }
+
+        public int buildingPrice { get; set; }
     }
 }
