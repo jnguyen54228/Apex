@@ -91,7 +91,7 @@ public class PlayerController : NetworkBehaviour {
             {
                 if (DataBase.buildingsList[ii].buildingBought == true)
                 {
-                    buildingsList[ii].buildingBought = true;
+                    RpcUpdateBuildingPurchaseOnClient(ii);
                 }
             }
         }
