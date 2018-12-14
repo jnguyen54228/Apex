@@ -78,6 +78,12 @@ public class PurchaseButton : NetworkBehaviour
                 purchaseButton.GetComponent<Image>().color = Color.gray;
                 purchaseButtonText.GetComponent<Text>().text = "SOLD";
             }
+            else if(DataBase.currentBuilding == buildingsList[c].buildingName && buildingsList[c].buildingBought == false)
+            {
+                purchaseButton.GetComponent<Button>().interactable = true;
+                purchaseButton.GetComponent<Image>().color = Color.white;
+                purchaseButtonText.GetComponent<Text>().text = "Purchase";
+            }
         }
 
         /*if (DataBase.currentBuilding == "Office Building" && officeBought == true)

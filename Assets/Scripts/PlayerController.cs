@@ -50,6 +50,14 @@ public class PlayerController : NetworkBehaviour {
             CmdUpdateBuildingPurchase("trade center 2");
         }*/
 
+        for (int c = 0; c < buildingsList.Count; c++)
+        {
+            if (buildingsList[c].buildingBought == true)
+            {
+                DataBase.buildingsList[c].buildingBought = true;
+            }
+        }
+
         for (int i = 0; i < buildingsList.Count; i++) {
             if (DataBase.buildingsList[i].buildingBought == true && !isServer && hasAuthority) {
                 CmdUpdateBuildingPurchaseOnServer(i);
@@ -80,12 +88,6 @@ public class PlayerController : NetworkBehaviour {
             {
                 DataBase.tradeCenter2Bought = true;
             }*/
-
-            for (int c = 0; c < buildingsList.Count; c++) {
-                if (buildingsList[c].buildingBought == true) {
-                    DataBase.buildingsList[c].buildingBought = true;
-                }
-            }
 
             for (int ii = 0; ii < buildingsList.Count; ii++)
             {
