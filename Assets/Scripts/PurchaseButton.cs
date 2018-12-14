@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class PurchaseButton : NetworkBehaviour
+public class PurchaseButton : NetworkBehaviour //Class that manages the purchase status of each building
 {
-
     public GameObject cashText;
     public GameObject purchaseButton;
     public GameObject purchaseButtonText;
@@ -21,19 +20,6 @@ public class PurchaseButton : NetworkBehaviour
         new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
     };
 
-    [SyncVar]
-    private bool officeBought = false;
-    [SyncVar]
-    private bool convienienceStoreBought = false;
-    [SyncVar]
-    private bool apartmentBuilding1Bought = false;
-    [SyncVar]
-    private bool apartmentBuilding2Bought = false;
-    [SyncVar]
-    private bool tradeCenter1Bought = false;
-    [SyncVar]
-    private bool tradeCenter2Bought = false;
-
     // Use this for initialization
     void Start() {
         purchaseButton.GetComponent<Button>();
@@ -42,37 +28,13 @@ public class PurchaseButton : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < buildingsList.Count; i++) {
+        for (int i = 0; i < buildingsList.Count; i++) { //checks database to see if the building has been bought from the other computer
             if (DataBase.buildingsList[i].buildingBought == true) {
                 buildingsList[i].buildingBought = true;
             }
         }
 
-        /*if (DataBase.officeBought == true) {
-            officeBought = true;
-        }
-        if (DataBase.convienienceStoreBought == true)
-        {
-            convienienceStoreBought = true;
-        }
-        if (DataBase.apartmentBuilding1Bought == true)
-        {
-            apartmentBuilding1Bought = true;
-        }
-        if (DataBase.apartmentBuilding2Bought == true)
-        {
-            apartmentBuilding2Bought = true;
-        }
-        if (DataBase.tradeCenter1Bought == true)
-        {
-            tradeCenter1Bought = true;
-        }
-        if (DataBase.tradeCenter2Bought == true)
-        {
-            tradeCenter2Bought = true;
-        } */
-
-        for (int c = 0; c < buildingsList.Count; c++) {
+        for (int c = 0; c < buildingsList.Count; c++) { //if the clicked on building is purchased, the option to purchase it is disabled
             if (DataBase.currentBuilding == buildingsList[c].buildingName && buildingsList[c].buildingBought == true) {
                 purchaseButton.GetComponent<Button>().interactable = false;
                 purchaseButton.GetComponent<Image>().color = Color.gray;
@@ -85,95 +47,21 @@ public class PurchaseButton : NetworkBehaviour
                 purchaseButtonText.GetComponent<Text>().text = "Purchase";
             }
         }
-
-        /*if (DataBase.currentBuilding == "Office Building" && officeBought == true)
-        {
-            purchaseButton.GetComponent<Button>().interactable = false;
-            purchaseButton.GetComponent<Image>().color = Color.gray;
-            purchaseButtonText.GetComponent<Text>().text = "SOLD";
-        }
-        else if (DataBase.currentBuilding == "Convienience Store" && convienienceStoreBought == true)
-        {
-            purchaseButton.GetComponent<Button>().interactable = false;
-            purchaseButton.GetComponent<Image>().color = Color.gray;
-            purchaseButtonText.GetComponent<Text>().text = "SOLD";
-        }
-        else if (DataBase.currentBuilding == "Apartment Building 1" && apartmentBuilding1Bought == true)
-        {
-            purchaseButton.GetComponent<Button>().interactable = false;
-            purchaseButton.GetComponent<Image>().color = Color.gray;
-            purchaseButtonText.GetComponent<Text>().text = "SOLD";
-        }
-        else if (DataBase.currentBuilding == "Apartment Building 2" && apartmentBuilding2Bought == true)
-        {
-            purchaseButton.GetComponent<Button>().interactable = false;
-            purchaseButton.GetComponent<Image>().color = Color.gray;
-            purchaseButtonText.GetComponent<Text>().text = "SOLD";
-        }
-        else if (DataBase.currentBuilding == "Trade Center 1" && tradeCenter1Bought == true)
-        {
-            purchaseButton.GetComponent<Button>().interactable = false;
-            purchaseButton.GetComponent<Image>().color = Color.gray;
-            purchaseButtonText.GetComponent<Text>().text = "SOLD";
-        }
-        else if (DataBase.currentBuilding == "Trade Center 2" && tradeCenter2Bought == true)
-        {
-            purchaseButton.GetComponent<Button>().interactable = false;
-            purchaseButton.GetComponent<Image>().color = Color.gray;
-            purchaseButtonText.GetComponent<Text>().text = "SOLD";
-        }
-        else
-        {
-            purchaseButton.GetComponent<Button>().interactable = true;
-            purchaseButton.GetComponent<Image>().color = Color.white;
-            purchaseButtonText.GetComponent<Text>().text = "Purchase";
-        }*/
     }
 
     public void PurchaseBuilding()
     {
-        if (DataBase.cash >= DataBase.currentBuildingPrice)
+        if (DataBase.cash >= DataBase.currentBuildingPrice) //if the player has enough money ot purchse the building
         {
             DataBase.cash -= DataBase.currentBuildingPrice;
             cashText.GetComponent<Text>().text = DataBase.cash.ToString();
 
             for (int ii = 0; ii < buildingsList.Count; ii++) {
                 if (DataBase.currentBuilding == buildingsList[ii].buildingName) {
-                    DataBase.buildingsList[ii].buildingBought = true;
-                    buildingsList[ii].buildingBought = true;
+                    DataBase.buildingsList[ii].buildingBought = true; //tells database that the building is purchased so that
+                    buildingsList[ii].buildingBought = true;          //the player controller can send it to the other computers database
                 }
             }
-
-            /*if(DataBase.currentBuilding == "Office Building")
-            {
-                DataBase.officeBought = true;
-                officeBought = true;
-            }
-            else if(DataBase.currentBuilding == "Convienience Store")
-            {
-                DataBase.convienienceStoreBought = true;
-                convienienceStoreBought = true;
-            }
-            else if (DataBase.currentBuilding == "Apartment Building 1")
-            {
-                DataBase.apartmentBuilding1Bought = true;
-                apartmentBuilding1Bought = true;
-            }
-            else if (DataBase.currentBuilding == "Apartment Building 2")
-            {
-                DataBase.apartmentBuilding2Bought = true;
-                apartmentBuilding2Bought = true;
-            }
-            else if (DataBase.currentBuilding == "Trade Center 1")
-            {
-                DataBase.tradeCenter1Bought = true;
-                tradeCenter1Bought = true;
-            }
-            else if (DataBase.currentBuilding == "Trade Center 2")
-            {
-                DataBase.tradeCenter2Bought = true;
-                tradeCenter2Bought = true;
-            }*/
         }
     }
 

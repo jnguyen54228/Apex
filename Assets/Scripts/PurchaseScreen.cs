@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PurchaseScreen : MonoBehaviour
+public class PurchaseScreen : MonoBehaviour //Class used for displaying the building purchase screen
 {
-
     public GameObject purchaseScreen;
     public GameObject buildingName;
     public GameObject buildingImage;
@@ -36,35 +35,10 @@ public class PurchaseScreen : MonoBehaviour
     {
         if (DataBase.highlightBuildingTest == true)
         {
-            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white;
-        }
+            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white; //change the color of the building that was 
+        }                                                                                 //just clicked off of back to white
 
-        /*if (gameObject.name == "Office Building")
-        {
-            buildingPrice.GetComponent<Text>().text = "$" + officeBuildingPrice;
-            DataBase.currentBuildingPrice = officeBuildingPrice;
-            DataBase.currentBuilding = gameObject.name;
-        }
-        else if (gameObject.name == "Convienience Store")
-        {
-            buildingPrice.GetComponent<Text>().text = "$" + convienienceStorePrice;
-            DataBase.currentBuildingPrice = convienienceStorePrice;
-            DataBase.currentBuilding = gameObject.name;
-        }
-        else if (gameObject.name == "Apartment Building 1" || gameObject.name == "Apartment Building 2")
-        {
-            buildingPrice.GetComponent<Text>().text = "$" + apartmentBuildingPrice;
-            DataBase.currentBuildingPrice = apartmentBuildingPrice;
-            DataBase.currentBuilding = gameObject.name;
-        }
-        else if (gameObject.name == "Trade Center 1" || gameObject.name == "Trade Center 2")
-        {
-            buildingPrice.GetComponent<Text>().text = "$" + tradeCenterPrice;
-            DataBase.currentBuildingPrice = tradeCenterPrice;
-            DataBase.currentBuilding = gameObject.name;
-        }*/
-
-        for (int i = 0; i < buildingsList.Count; i++) {
+        for (int i = 0; i < buildingsList.Count; i++) {  //finds that building that is clicked on and adds its values to the purchase screen
             if (gameObject.name == buildingsList[i].buildingName) {
                 buildingPrice.GetComponent<Text>().text = "$" + buildingsList[i].buildingPrice;
                 DataBase.currentBuildingPrice = buildingsList[i].buildingPrice;

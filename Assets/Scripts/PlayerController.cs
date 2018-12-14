@@ -5,13 +5,6 @@ using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour {
 
-    private bool officeBought = false;
-    private bool convienienceStoreBought = false;
-    private bool apartmentBuilding1Bought = false;
-    private bool apartmentBuilding2Bought = false;
-    private bool tradeCenter1Bought = false;
-    private bool tradeCenter2Bought = false;
-
     IList<Building> buildingsList = new List<Building>() {
 
         new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20},
@@ -27,30 +20,8 @@ public class PlayerController : NetworkBehaviour {
 	}
 	
 	void Update () {
-        /*if (DataBase.officeBought == true && !isServer && hasAuthority) {
-            CmdUpdateBuildingPurchase("office"); 
-        }
-        if (DataBase.convienienceStoreBought == true && !isServer && hasAuthority) {
-            CmdUpdateBuildingPurchase("convienence store");
-        }
-        if (DataBase.apartmentBuilding1Bought == true && !isServer && hasAuthority)
-        {
-            CmdUpdateBuildingPurchase("apartment 1");
-        }
-        if (DataBase.apartmentBuilding2Bought == true && !isServer && hasAuthority)
-        {
-            CmdUpdateBuildingPurchase("apartment 2");
-        }
-        if (DataBase.tradeCenter1Bought == true && !isServer && hasAuthority)
-        {
-            CmdUpdateBuildingPurchase("trade center 1");
-        }
-        if (DataBase.tradeCenter2Bought == true && !isServer && hasAuthority)
-        {
-            CmdUpdateBuildingPurchase("trade center 2");
-        }*/
 
-        for (int c = 0; c < buildingsList.Count; c++)
+        for (int c = 0; c < buildingsList.Count; c++) //sends info to database so the PurchaseButton class can see it
         {
             if (buildingsList[c].buildingBought == true)
             {
@@ -58,38 +29,20 @@ public class PlayerController : NetworkBehaviour {
             }
         }
 
-        for (int i = 0; i < buildingsList.Count; i++) {
-            if (DataBase.buildingsList[i].buildingBought == true && !isServer && hasAuthority) {
-                CmdUpdateBuildingPurchaseOnServer(i);
+        if (!isServer)
+        {
+            for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the database, client sends info to the sever
+            {
+                if (DataBase.buildingsList[i].buildingBought == true && hasAuthority)
+                {
+                    CmdUpdateBuildingPurchaseOnServer(i);
+                }
             }
         }
 
         if (isServer) {
-            /*if(officeBought == true) {
-                DataBase.officeBought = true;
-            }
-            if (convienienceStoreBought == true)
-            {
-                DataBase.convienienceStoreBought = true;
-            }
-            if (apartmentBuilding1Bought == true)
-            {
-                DataBase.apartmentBuilding1Bought = true;
-            }
-            if (apartmentBuilding2Bought == true)
-            {
-                DataBase.apartmentBuilding2Bought = true;
-            }
-            if (tradeCenter1Bought == true)
-            {
-                DataBase.tradeCenter1Bought = true;
-            }
-            if (tradeCenter2Bought == true)
-            {
-                DataBase.tradeCenter2Bought = true;
-            }*/
 
-            for (int ii = 0; ii < buildingsList.Count; ii++)
+            for (int ii = 0; ii < buildingsList.Count; ii++) //if new purchase shows up in the database, server sends info to the client
             {
                 if (DataBase.buildingsList[ii].buildingBought == true)
                 {
@@ -100,36 +53,12 @@ public class PlayerController : NetworkBehaviour {
 	}
 
     [Command]
-    void CmdUpdateBuildingPurchaseOnServer(int building) {
-        /*if (building == "office")
-        {
-            officeBought = true;
-        }
-        else if (building == "convienence store") {
-            convienienceStoreBought = true;
-        }
-        else if (building == "apartment 1")
-        {
-            apartmentBuilding1Bought = true;
-        }
-        else if (building == "apartment 2")
-        {
-            apartmentBuilding2Bought= true;
-        }
-        else if (building == "trade center 1")
-        {
-            tradeCenter1Bought = true;
-        }
-        else if (building == "trade center 2")
-        {
-            tradeCenter2Bought = true;
-        }*/
-
+    void CmdUpdateBuildingPurchaseOnServer(int building) { //sends command to run on the server
         buildingsList[building].buildingBought = true;
     }
 
     [ClientRpc]
-    void RpcUpdateBuildingPurchaseOnClient(int building) {
+    void RpcUpdateBuildingPurchaseOnClient(int building) { //sends command to run on the client
         buildingsList[building].buildingBought = true;
     }
 
