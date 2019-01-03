@@ -7,12 +7,12 @@ public class PlayerController : NetworkBehaviour {
 
     IList<Building> buildingsList = new List<Building>() {
 
-        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20},
-        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30},
-        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50},
-        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50},
-        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75},
-        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
+        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20, owner = "none"},
+        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30, owner = "none"},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none"},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none"},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75, owner = "none"},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75, owner = "none"}
     };
 
     void Start () {
@@ -41,7 +41,7 @@ public class PlayerController : NetworkBehaviour {
 
         if (!isServer)
         {
-            for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the databasethat isn't recognized locally, client sends info to the sever
+            for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the database that isn't recognized locally, client sends info to the sever
             {
                 if (DataBase.buildingsList[i].buildingBought == true && buildingsList[i].buildingBought == false && hasAuthority)
                 {
@@ -65,11 +65,19 @@ public class PlayerController : NetworkBehaviour {
     [Command]
     void CmdUpdateBuildingPurchaseOnServer(int building) { //sends command to run on the server that says that a specific building has been baught
         DataBase.buildingsList[building].buildingBought = true;
+        DataBase.buildingsList[building].owner = "client";
+
+        buildingsList[building].buildingBought = true;
+        buildingsList[building].owner = "client";
     }
 
     [ClientRpc]
     void RpcUpdateBuildingPurchaseOnClient(int building) { //sends command to run on the client
         DataBase.buildingsList[building].buildingBought = true;
+        DataBase.buildingsList[building].owner = "server";
+
+        buildingsList[building].buildingBought = true;
+        buildingsList[building].owner = "server";
     }
 
     [Command]
@@ -90,5 +98,7 @@ public class PlayerController : NetworkBehaviour {
         public bool buildingBought { get; set; }
 
         public int buildingPrice { get; set; }
+
+        public string owner { get; set; }
     }
 }
