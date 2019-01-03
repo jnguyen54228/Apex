@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
 
 public class DataBase : MonoBehaviour {     //Class used for data shared across the game
 
@@ -13,6 +14,7 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static string turn = "server"; //the server gets the first turn of the game
     public static bool serverTurnEnded = false;
     public static bool clientTurnEnded = false;
+    public static int[,] ownedBuildingTypes = new int[4,] { { 0, 20 }, { 0, 30 }, { 0, 50 }, { 0, 75 } };
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -24,7 +26,11 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
         new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
     };
 
-    public class Building
+    for(int i = 0;i < 4; i++){
+        Cash += ownedBuildingTypes[i, 0] * ownedBuildingTypes[i, 1];
+    }
+
+public class Building
     {
         public string buildingName { get; set; }
 

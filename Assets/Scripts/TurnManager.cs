@@ -26,7 +26,7 @@ public class TurnManager : NetworkBehaviour {
 	void Update () {
 
         if (isServer) {
-            if (DataBase.turn == "server")    //if the it's the server's turn on the server's computer,                                        
+            if (DataBase.turn == "server")    //if it's the server's turn on the server's computer,                                        
             {                                 //they are free to do what ever they want 
                 waitPanel.SetActive(false);
                 Cursor.visible = true;
