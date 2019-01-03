@@ -10,6 +10,9 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static string currentBuilding;
     public static bool highlightBuildingTest = false;
     public static GameObject previousBuilding;
+    public static string turn = "server"; //the server gets the first turn of the game
+    public static bool serverTurnEnded = false;
+    public static bool clientTurnEnded = false;
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -20,16 +23,6 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
         new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75},
         new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
     };
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public class Building
     {

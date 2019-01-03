@@ -16,24 +16,34 @@ public class PlayerController : NetworkBehaviour {
     };
 
     void Start () {
-		
 	}
 	
 	void Update () {
 
-        for (int c = 0; c < buildingsList.Count; c++) //sends info to database so the PurchaseButton class can see it
+        if (DataBase.serverTurnEnded == true && hasAuthority) //if the end turn button has been pressed...
+        {
+            RpcUpdateTurnOnClient();
+            DataBase.serverTurnEnded = false;
+        }
+        else if (DataBase.clientTurnEnded == true && hasAuthority)
+        {
+            CmdUpdateTurnOnServer();
+            DataBase.clientTurnEnded = false;
+        }
+
+        /*for (int c = 0; c < buildingsList.Count; c++) //sends info to database so the PurchaseButton class can see it
         {
             if (buildingsList[c].buildingBought == true)
             {
                 DataBase.buildingsList[c].buildingBought = true;
             }
-        }
+        }*/
 
         if (!isServer)
         {
-            for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the database, client sends info to the sever
+            for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the databasethat isn't recognized locally, client sends info to the sever
             {
-                if (DataBase.buildingsList[i].buildingBought == true && hasAuthority)
+                if (DataBase.buildingsList[i].buildingBought == true && buildingsList[i].buildingBought == false && hasAuthority)
                 {
                     CmdUpdateBuildingPurchaseOnServer(i);
                 }
@@ -42,9 +52,9 @@ public class PlayerController : NetworkBehaviour {
 
         if (isServer) {
 
-            for (int ii = 0; ii < buildingsList.Count; ii++) //if new purchase shows up in the database, server sends info to the client
+            for (int ii = 0; ii < buildingsList.Count; ii++) //if new purchase shows up in the database that isn't recognized locally, server sends info to the client
             {
-                if (DataBase.buildingsList[ii].buildingBought == true)
+                if (DataBase.buildingsList[ii].buildingBought == true && buildingsList[ii].buildingBought == false && hasAuthority)
                 {
                     RpcUpdateBuildingPurchaseOnClient(ii);
                 }
@@ -53,13 +63,24 @@ public class PlayerController : NetworkBehaviour {
 	}
 
     [Command]
-    void CmdUpdateBuildingPurchaseOnServer(int building) { //sends command to run on the server
-        buildingsList[building].buildingBought = true;
+    void CmdUpdateBuildingPurchaseOnServer(int building) { //sends command to run on the server that says that a specific building has been baught
+        DataBase.buildingsList[building].buildingBought = true;
     }
 
     [ClientRpc]
     void RpcUpdateBuildingPurchaseOnClient(int building) { //sends command to run on the client
-        buildingsList[building].buildingBought = true;
+        DataBase.buildingsList[building].buildingBought = true;
+    }
+
+    [Command]
+    void CmdUpdateTurnOnServer() {
+        DataBase.turn = "server";
+    }
+
+    [ClientRpc]
+    void RpcUpdateTurnOnClient()
+    {
+        DataBase.turn = "client";
     }
 
     public class Building

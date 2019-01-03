@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4167793579832904}
   - component: {fileID: 114485362289395970}
-  - component: {fileID: 114016133221069804}
+  - component: {fileID: 114715753671393890}
   m_Layer: 0
   m_Name: Spawn Location 1
   m_TagString: Untagged
@@ -41,7 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114016133221069804
+--- !u!114 &114485362289395970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334162879100988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1050975500, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114715753671393890
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -72,15 +83,4 @@ MonoBehaviour:
     i14: 195
     i15: 94
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &114485362289395970
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1334162879100988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1050975500, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_LocalPlayerAuthority: 0
