@@ -13,6 +13,8 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static string turn = "server"; //the server gets the first turn of the game
     public static bool serverTurnEnded = false;
     public static bool clientTurnEnded = false;
+    public static bool serverBuildingPurchased = false;
+    public static bool clientBuildingPurchased = false;
 
     public static IList<Building> buildingsList = new List<Building>() {
 

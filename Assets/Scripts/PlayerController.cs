@@ -39,24 +39,26 @@ public class PlayerController : NetworkBehaviour {
             }
         }*/
 
-        if (!isServer)
+        if (DataBase.serverBuildingPurchased == true)
         {
-            for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the database that isn't recognized locally, client sends info to the sever
+            for (int ii = 0; ii < buildingsList.Count; ii++) //if new purchase shows up in the database that isn't recognized locally, server sends info to the client
             {
-                if (DataBase.buildingsList[i].buildingBought == true && buildingsList[i].buildingBought == false && hasAuthority)
+                if (DataBase.buildingsList[ii].buildingBought == true && buildingsList[ii].buildingBought == false && DataBase.buildingsList[ii].owner != "client" && hasAuthority)
                 {
-                    CmdUpdateBuildingPurchaseOnServer(i);
+                    RpcUpdateBuildingPurchaseOnClient(ii);
+                    DataBase.serverBuildingPurchased = false;
                 }
             }
         }
 
-        if (isServer) {
-
-            for (int ii = 0; ii < buildingsList.Count; ii++) //if new purchase shows up in the database that isn't recognized locally, server sends info to the client
+        if (DataBase.clientBuildingPurchased == true)
+        {
+            for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the database that isn't recognized locally, client sends info to the sever
             {
-                if (DataBase.buildingsList[ii].buildingBought == true && buildingsList[ii].buildingBought == false && hasAuthority)
+                if (DataBase.buildingsList[i].buildingBought == true && buildingsList[i].buildingBought == false && DataBase.buildingsList[i].owner != "server" && hasAuthority)
                 {
-                    RpcUpdateBuildingPurchaseOnClient(ii);
+                    CmdUpdateBuildingPurchaseOnServer(i);
+                    DataBase.clientBuildingPurchased = false;
                 }
             }
         }

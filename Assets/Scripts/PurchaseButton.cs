@@ -31,7 +31,6 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
         for (int i = 0; i < buildingsList.Count; i++) { //checks database to see if the building has been bought from the other computer
             if (DataBase.buildingsList[i].buildingBought == true) {
                 buildingsList[i].buildingBought = true;
-                buildingsList[i].owner = DataBase.buildingsList[i].owner;
             }
         }
 
@@ -39,7 +38,7 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
             if (DataBase.currentBuilding == buildingsList[c].buildingName && buildingsList[c].buildingBought == true) {
                 purchaseButton.GetComponent<Button>().interactable = false;
                 purchaseButton.GetComponent<Image>().color = Color.gray;
-                purchaseButtonText.GetComponent<Text>().text = buildingsList[c].owner; //displays name of owner of the building
+                purchaseButtonText.GetComponent<Text>().text = DataBase.buildingsList[c].owner; //displays name of owner of the building
             }
             else if(DataBase.currentBuilding == buildingsList[c].buildingName && buildingsList[c].buildingBought == false)
             {
@@ -63,10 +62,14 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
                     buildingsList[ii].buildingBought = true;          //the player controller can send it to the other computers database
                     if (isServer)
                     {
+                        DataBase.serverBuildingPurchased = true;
+
                         DataBase.buildingsList[ii].owner = "server";
                         buildingsList[ii].owner = "server";
                     }
                     else if (!isServer) {
+                        DataBase.clientBuildingPurchased = true;
+
                         DataBase.buildingsList[ii].owner = "client";
                         buildingsList[ii].owner = "client";
                     }
