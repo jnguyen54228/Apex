@@ -64,14 +64,14 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
                     {
                         DataBase.serverBuildingPurchased = true;
 
-                        DataBase.buildingsList[ii].owner = "server";
-                        buildingsList[ii].owner = "server";
+                        DataBase.buildingsList[ii].owner = "Server";
+                        buildingsList[ii].owner = "Server";
                     }
                     else if (!isServer) {
                         DataBase.clientBuildingPurchased = true;
 
-                        DataBase.buildingsList[ii].owner = "client";
-                        buildingsList[ii].owner = "client";
+                        DataBase.buildingsList[ii].owner = "Client";
+                        buildingsList[ii].owner = "Client";
                     }
                 }
             }

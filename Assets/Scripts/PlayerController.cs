@@ -67,19 +67,19 @@ public class PlayerController : NetworkBehaviour {
     [Command]
     void CmdUpdateBuildingPurchaseOnServer(int building) { //sends command to run on the server that says that a specific building has been baught
         DataBase.buildingsList[building].buildingBought = true;
-        DataBase.buildingsList[building].owner = "client";
+        DataBase.buildingsList[building].owner = "Client";
 
         buildingsList[building].buildingBought = true;
-        buildingsList[building].owner = "client";
+        buildingsList[building].owner = "Client";
     }
 
     [ClientRpc]
     void RpcUpdateBuildingPurchaseOnClient(int building) { //sends command to run on the client
         DataBase.buildingsList[building].buildingBought = true;
-        DataBase.buildingsList[building].owner = "server";
+        DataBase.buildingsList[building].owner = "Server";
 
         buildingsList[building].buildingBought = true;
-        buildingsList[building].owner = "server";
+        buildingsList[building].owner = "Server";
     }
 
     [Command]
