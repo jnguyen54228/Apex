@@ -23,7 +23,20 @@ public class Player : MonoBehaviour
         //If building type owned gain x money per building pe
 
 
-    }   
+    }
+
+    
+    public static IList<Building> buildingsList = new List<Building>() {
+
+        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20},
+        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
+    };
+
+    
 
     //per turn
     

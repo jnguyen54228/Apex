@@ -8,7 +8,9 @@ public class TurnManager : NetworkBehaviour {
 
     private GameObject dayText;
     private GameObject waitPanel;
+    DataBase scriptInstance = null;
     private int day;
+    public int cash;
 
     // Use this for initialization
     void Start()
@@ -20,6 +22,9 @@ public class TurnManager : NetworkBehaviour {
 
         dayText = GameObject.Find("Day");
         dayText.GetComponent<Text>().text = day.ToString();
+
+        GameObject tempObj = GameObject.Find("Cash");
+        scriptInstance = tempObj.GetComponent<DataBase>();
     }
 	
 	// Update is called once per frame
@@ -27,7 +32,9 @@ public class TurnManager : NetworkBehaviour {
 
         if (isServer) {
             if (DataBase.turn == "server")    //if it's the server's turn on the server's computer,                                        
-            {                                 //they are free to do what ever they want 
+            {
+                //they are free to do what ever they want 
+                cash = scriptInstance.Main();
                 waitPanel.SetActive(false);
                 Cursor.visible = true;
             }

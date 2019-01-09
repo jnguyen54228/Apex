@@ -52,7 +52,7 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
         purchaseScreen.SetActive(true);
         DataBase.highlightBuildingTest = true;
         DataBase.previousBuilding = gameObject;
-        }
+    }
 
     public class Building
     {

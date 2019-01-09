@@ -7,6 +7,8 @@ using System;
 public class DataBase : MonoBehaviour {     //Class used for data shared across the game
 
     public static int cash = 100;
+    public int Cash = cash;
+    //private static int Cash;
     public static int currentBuildingPrice;
     public static string currentBuilding;
     public static bool highlightBuildingTest = false;
@@ -14,7 +16,7 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static string turn = "server"; //the server gets the first turn of the game
     public static bool serverTurnEnded = false;
     public static bool clientTurnEnded = false;
-    public static int[,] ownedBuildingTypes = new int[4,] { { 0, 20 }, { 0, 30 }, { 0, 50 }, { 0, 75 } };
+    public static int[,] ownedBuildingTypes = new int[4, 2] { { 0, 20 }, { 0, 30 }, { 0, 50 }, { 0, 75 } };
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -26,16 +28,24 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
         new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75}
     };
 
-    for(int i = 0;i < 4; i++){
-        Cash += ownedBuildingTypes[i, 0] * ownedBuildingTypes[i, 1];
+    
+    public int Main()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Cash = cash + (ownedBuildingTypes[i, 0] * ownedBuildingTypes[i, 1]);
+        }
+        return Cash;
     }
 
-public class Building
+
+    public class Building
     {
-        public string buildingName { get; set; }
+         public string buildingName { get; set; }
 
-        public bool buildingBought { get; set; }
+         public bool buildingBought { get; set; }
 
-        public int buildingPrice { get; set; }
+         public int buildingPrice { get; set; }
     }
 }
+
