@@ -12,12 +12,18 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
 
     IList<Building> buildingsList = new List<Building>() {
 
-        new Building(){ buildingName = "Office Building", buildingBought = false, buildingPrice = 20, owner = "none"},
-        new Building(){ buildingName = "Convienience Store", buildingBought = false, buildingPrice = 30, owner = "none"},
+        new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 20, owner = "none"},
+        new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 20, owner = "none"},
+        new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none"},
+        new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none"},
         new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none"},
         new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none"},
         new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75, owner = "none"},
-        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75, owner = "none"}
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75, owner = "none"},
+        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none"},
+        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none"},
+        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 25, owner = "none"},
+        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 75, owner = "none"}
     };
 
     // Use this for initialization
