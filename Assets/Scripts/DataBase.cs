@@ -15,6 +15,8 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static bool clientTurnEnded = false;
     public static bool serverBuildingPurchased = false;
     public static bool clientBuildingPurchased = false;
+    public static bool serverWin = false; //determines whether server/client has won
+    public static bool clientWin = false;
 
     public static IList<Building> buildingsList = new List<Building>() {
 

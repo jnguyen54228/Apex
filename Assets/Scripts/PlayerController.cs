@@ -26,6 +26,14 @@ public class PlayerController : NetworkBehaviour {
 	
 	void Update () {
 
+        if (DataBase.cash >= 200 && isServer)
+        {
+            DataBase.serverWin = true;
+        }
+        else if (DataBase.cash >= 200 && !isClient) {
+            DataBase.clientWin = true;
+        }
+
         if (DataBase.serverTurnEnded == true && hasAuthority) //if the end turn button has been pressed...
         {
             RpcUpdateTurnOnClient();
