@@ -9,21 +9,23 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
     public GameObject buildingName;
     public GameObject buildingImage;
     public GameObject buildingPrice;
+    public GameObject buildingRevenue;
+
 
     IList<Building> buildingsList = new List<Building>() {
 
-        new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 20, owner = "none"},
-        new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 20, owner = "none"},
-        new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none"},
-        new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none"},
-        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none"},
-        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none"},
-        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75, owner = "none"},
-        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75, owner = "none"},
-        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none"},
-        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none"},
-        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 25, owner = "none"},
-        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 75, owner = "none"}
+        new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 20, owner = "none", revenue = 10},
+        new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 20, owner = "none", revenue = 10},
+        new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
+        new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35},
+        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50},
+        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
+        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
+        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 60, owner = "none", revenue = 30}
     };
 
     // Use this for initialization
@@ -47,6 +49,7 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
         for (int i = 0; i < buildingsList.Count; i++) {  //finds that building that is clicked on and adds its values to the purchase screen
             if (gameObject.name == buildingsList[i].buildingName) {
                 buildingPrice.GetComponent<Text>().text = "$" + buildingsList[i].buildingPrice;
+                buildingRevenue.GetComponent<Text>().text = "$" + buildingsList[i].revenue;
                 DataBase.currentBuildingPrice = buildingsList[i].buildingPrice;
                 DataBase.currentBuilding = gameObject.name;
             }
@@ -69,5 +72,7 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
         public int buildingPrice { get; set; }
 
         public string owner { get; set; }
+
+        public int revenue { get; set; }
     }
 }

@@ -2,27 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour {
 
     IList<Building> buildingsList = new List<Building>() {
 
-        new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 20, owner = "none"},
-        new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 20, owner = "none"},
-        new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none"},
-        new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none"},
-        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none"},
-        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none"},
-        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 75, owner = "none"},
-        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 75, owner = "none"},
-        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none"},
-        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none"},
-        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 25, owner = "none"},
-        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 75, owner = "none"}
+        new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 20, owner = "none", revenue = 10},
+        new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 20, owner = "none", revenue = 10},
+        new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
+        new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35},
+        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50},
+        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
+        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
+        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 60, owner = "none", revenue = 30}
     };
 
+    private GameObject dayText;
+
+
     void Start () {
-	}
+
+        dayText = GameObject.Find("Day");
+    }
 	
 	void Update () {
 
@@ -36,28 +42,40 @@ public class PlayerController : NetworkBehaviour {
 
         if (DataBase.serverTurnEnded == true && hasAuthority) //if the end turn button has been pressed...
         {
-            RpcUpdateTurnOnClient();
-            DataBase.serverTurnEnded = false;
+            /*DataBase.turns++;
+
+            if (DataBase.turns % 2 == 0) //every 2 turns, the day is ended
+            {
+                DataBase.day++;
+                dayText.GetComponent<Text>().text = DataBase.day.ToString();
+            }*/
+
+            RpcUpdateTurnOnClient(DataBase.day);
+
+            DataBase.serverTurnEnded = false; 
         }
         else if (DataBase.clientTurnEnded == true && hasAuthority)
         {
-            CmdUpdateTurnOnServer();
+            /*DataBase.turns++;
+
+            if (DataBase.turns % 2 == 0) //every 2 turns, the day is ended
+            {
+                DataBase.day++;
+                dayText.GetComponent<Text>().text = DataBase.day.ToString();
+            } */
+
+            DataBase.day++;
+            dayText.GetComponent<Text>().text = DataBase.day.ToString();
+
+            CmdUpdateTurnOnServer(DataBase.day);
             DataBase.clientTurnEnded = false;
         }
-
-        /*for (int c = 0; c < buildingsList.Count; c++) //sends info to database so the PurchaseButton class can see it
-        {
-            if (buildingsList[c].buildingBought == true)
-            {
-                DataBase.buildingsList[c].buildingBought = true;
-            }
-        }*/
 
         if (DataBase.serverBuildingPurchased == true)
         {
             for (int ii = 0; ii < buildingsList.Count; ii++) //if new purchase shows up in the database that isn't recognized locally, server sends info to the client
             {
-                if (DataBase.buildingsList[ii].buildingBought == true && buildingsList[ii].buildingBought == false && DataBase.buildingsList[ii].owner != "client" && hasAuthority)
+                if (DataBase.buildingsList[ii].buildingBought == true && buildingsList[ii].buildingBought == false && DataBase.buildingsList[ii].owner == "Server" && hasAuthority)
                 {
                     RpcUpdateBuildingPurchaseOnClient(ii);
                     DataBase.serverBuildingPurchased = false;
@@ -69,7 +87,7 @@ public class PlayerController : NetworkBehaviour {
         {
             for (int i = 0; i < buildingsList.Count; i++) //if new purchase shows up in the database that isn't recognized locally, client sends info to the sever
             {
-                if (DataBase.buildingsList[i].buildingBought == true && buildingsList[i].buildingBought == false && DataBase.buildingsList[i].owner != "server" && hasAuthority)
+                if (DataBase.buildingsList[i].buildingBought == true && buildingsList[i].buildingBought == false && DataBase.buildingsList[i].owner == "Client" && hasAuthority)
                 {
                     CmdUpdateBuildingPurchaseOnServer(i);
                     DataBase.clientBuildingPurchased = false;
@@ -97,14 +115,24 @@ public class PlayerController : NetworkBehaviour {
     }
 
     [Command]
-    void CmdUpdateTurnOnServer() {
+    void CmdUpdateTurnOnServer(int day) {
+        DataBase.turns++;
+        DataBase.day = day;
+        dayText.GetComponent<Text>().text = DataBase.day.ToString();
         DataBase.turn = "server";
+        DataBase.cash += DataBase.totalRevenue;
     }
 
     [ClientRpc]
-    void RpcUpdateTurnOnClient()
-    {
+    void RpcUpdateTurnOnClient(int day) {
+        DataBase.turns++;
+        DataBase.day = day;
+        dayText.GetComponent<Text>().text = DataBase.day.ToString();
         DataBase.turn = "client";
+        if (!isServer)
+        {
+            DataBase.cash += DataBase.totalRevenue;
+        }
     }
 
     public class Building
@@ -116,5 +144,7 @@ public class PlayerController : NetworkBehaviour {
         public int buildingPrice { get; set; }
 
         public string owner { get; set; }
+
+        public int revenue { get; set; }
     }
 }

@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class TurnManager : NetworkBehaviour {
 
-    private GameObject dayText;
     private GameObject waitPanel;
-    private int day;
 
     // Use this for initialization
     void Start()
@@ -16,10 +14,6 @@ public class TurnManager : NetworkBehaviour {
         waitPanel = GameObject.Find("Wait Panel");
         waitPanel.SetActive(false);
 
-        day = 1;
-
-        dayText = GameObject.Find("Day");
-        dayText.GetComponent<Text>().text = day.ToString();
     }
 	
 	// Update is called once per frame
@@ -55,7 +49,7 @@ public class TurnManager : NetworkBehaviour {
         if (isServer)           
         {
             DataBase.turn = "client"; 
-            DataBase.serverTurnEnded = true; //triggers code to run in the PlayerController Class
+            DataBase.serverTurnEnded = true; //triggers code to run in the PlayerController 
         }
         else if (!isServer) {
             DataBase.turn = "server";
