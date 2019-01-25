@@ -19,15 +19,17 @@ public class PlayerController : NetworkBehaviour {
         new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50},
         new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
         new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
-        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 60, owner = "none", revenue = 30}
+        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 30}
     };
 
     private GameObject dayText;
+    private GameObject cashText;
 
 
     void Start () {
 
         dayText = GameObject.Find("Day");
+        cashText = GameObject.Find("Cash");
     }
 	
 	void Update () {
@@ -120,7 +122,9 @@ public class PlayerController : NetworkBehaviour {
         DataBase.day = day;
         dayText.GetComponent<Text>().text = DataBase.day.ToString();
         DataBase.turn = "server";
-        DataBase.cash += DataBase.totalRevenue;
+        //DataBase.cash += DataBase.totalRevenue;  //this is the old way of adding revenue per turn
+        DataBase.cash = DataBase.AddRevenue();
+        cashText.GetComponent<Text>().text = DataBase.cash.ToString();
     }
 
     [ClientRpc]
@@ -131,7 +135,9 @@ public class PlayerController : NetworkBehaviour {
         DataBase.turn = "client";
         if (!isServer)
         {
-            DataBase.cash += DataBase.totalRevenue;
+            //DataBase.cash += DataBase.totalRevenue;
+            DataBase.cash = DataBase.AddRevenue();
+            cashText.GetComponent<Text>().text = DataBase.cash.ToString();
         }
     }
 

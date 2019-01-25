@@ -24,7 +24,7 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
         new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50},
         new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25},
         new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15},
-        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 60, owner = "none", revenue = 30}
+        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 30}
     };
 
     // Use this for initialization
@@ -63,6 +63,29 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
     {
         if (DataBase.cash >= DataBase.currentBuildingPrice) //if the player has enough money to purchse the building
         {
+            int price = DataBase.currentBuildingPrice;
+
+            if (price == 20)
+            {
+                DataBase.ownedBuildingTypes[0, 0]++;
+            }
+            else if (price == 30)
+            {
+                DataBase.ownedBuildingTypes[1, 0]++;
+            }
+            else if (price == 50)
+            {
+                DataBase.ownedBuildingTypes[2, 0]++;
+            }
+            else if (price == 70)
+            {
+                DataBase.ownedBuildingTypes[3, 0]++;
+            }
+            else if (price == 100)
+            {
+                DataBase.ownedBuildingTypes[4, 0]++;
+            }
+
             DataBase.cash -= DataBase.currentBuildingPrice;
             cashText.GetComponent<Text>().text = "$" + DataBase.cash.ToString();
 
