@@ -37,9 +37,11 @@ public class PlayerController : NetworkBehaviour {
         if (DataBase.cash >= 200 && isServer)
         {
             DataBase.serverWin = true;
+            RpcUpdateWinOnClient();
         }
-        else if (DataBase.cash >= 200 && !isClient) {
+        else if (DataBase.cash >= 200 && isClient) {
             DataBase.clientWin = true;
+            CmdUpdateWinOnServer();
         }
 
         if (DataBase.serverTurnEnded == true && hasAuthority) //if the end turn button has been pressed...
@@ -139,6 +141,18 @@ public class PlayerController : NetworkBehaviour {
             DataBase.cash = DataBase.AddRevenue();
             cashText.GetComponent<Text>().text = DataBase.cash.ToString();
         }
+    }
+
+    [Command]
+    void CmdUpdateWinOnServer()
+    {
+        DataBase.clientWin = true;
+    }
+
+    [ClientRpc]
+    void RpcUpdateWinOnClient()
+    {
+        DataBase.serverWin = true;
     }
 
     public class Building

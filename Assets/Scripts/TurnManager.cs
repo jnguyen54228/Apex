@@ -6,12 +6,11 @@ using UnityEngine;
 
 public class TurnManager : NetworkBehaviour {
 
-    private GameObject waitPanel;
+    public GameObject waitPanel;
 
     // Use this for initialization
     void Start()
     {
-        waitPanel = GameObject.Find("Wait Panel");
         waitPanel.SetActive(false);
 
     }
@@ -20,23 +19,30 @@ public class TurnManager : NetworkBehaviour {
 	void Update () {
 
         if (isServer) {
-            if (DataBase.turn == "server")    //if the it's the server's turn on the server's computer,                                        
+            if (DataBase.clientWin == true) {
+                waitPanel.SetActive(false);
+            }
+            else if (DataBase.turn == "server")    //if the it's the server's turn on the server's computer,                                        
             {                                 //they are free to do what ever they want 
                 waitPanel.SetActive(false);
                 Cursor.visible = true;
             }
-            else {                                          //however if it's the client's turn on the server's computer,
+            else if(DataBase.turn == "client"){             //however if it's the client's turn on the server's computer,
                 waitPanel.SetActive(true);                  //the server;s computer is locked 
                 Cursor.visible = false;
             }
         }
         else if (!isServer)
         {
-            if (DataBase.turn == "client") {
+            if (DataBase.serverWin == true)
+            {
+                waitPanel.SetActive(false);
+            }
+            else if (DataBase.turn == "client") {
                 waitPanel.SetActive(false);
                 Cursor.visible = true;
             }
-            else
+            else if(DataBase.turn == "server")
             {
                 waitPanel.SetActive(true);
                 Cursor.visible = false;
