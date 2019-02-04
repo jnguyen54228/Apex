@@ -22,6 +22,7 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static int totalRevenue = 0;
     public static int employeePool = 100;
     public static int employeesOwned = 0;
+    public static bool employeeModeIsActivated = false;
 
     public static IList<Building> buildingsList = new List<Building>() {
 

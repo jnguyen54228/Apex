@@ -10,6 +10,9 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
     public GameObject buildingImage;
     public GameObject buildingPrice;
     public GameObject buildingRevenue;
+    public GameObject buildingInfo;
+    public GameObject employeeCapText;
+    public GameObject employeesOwnedText;
 
 
     public static IList<Building> buildingsList = new List<Building>() {
@@ -31,12 +34,12 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
     // Use this for initialization
     void Start()
     {
+        buildingInfo.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     void OnMouseDown()
@@ -48,6 +51,16 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
 
         for (int i = 0; i < buildingsList.Count; i++) {  //finds that building that is clicked on and adds its values to the purchase screen
             if (gameObject.name == buildingsList[i].buildingName) {
+                if (DataBase.buildingsList[i].buildingBought == true)
+                {
+                    employeeCapText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeeCap).ToString();
+                    employeesOwnedText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeesOwned).ToString();
+                    buildingInfo.SetActive(true);
+                }
+                else {
+                    buildingInfo.SetActive(false);
+                }
+
                 buildingPrice.GetComponent<Text>().text = "$" + buildingsList[i].buildingPrice;
                 buildingRevenue.GetComponent<Text>().text = "$" + buildingsList[i].revenue;
                 DataBase.currentBuildingPrice = buildingsList[i].buildingPrice;

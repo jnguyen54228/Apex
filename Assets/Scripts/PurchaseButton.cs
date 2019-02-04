@@ -10,6 +10,9 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
     public GameObject totalRevenueText;
     public GameObject purchaseButton;
     public GameObject purchaseButtonText;
+    public GameObject buildingInfo;
+    public GameObject employeeCapText;
+    public GameObject employeesOwnedText;
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -91,6 +94,11 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
 
             for (int ii = 0; ii < buildingsList.Count; ii++) {
                 if (DataBase.currentBuilding == buildingsList[ii].buildingName) {
+
+                    employeeCapText.GetComponent<Text>().text = (DataBase.buildingsList[ii].employeeCap).ToString();   //activates buildinginfo box
+                    employeesOwnedText.GetComponent<Text>().text = (DataBase.buildingsList[ii].employeesOwned).ToString();
+                    buildingInfo.SetActive(true);
+
                     DataBase.buildingsList[ii].buildingBought = true; //tells database that the building is purchased so that
                     buildingsList[ii].buildingBought = true;          //the player controller can send it to the other computers database
 
