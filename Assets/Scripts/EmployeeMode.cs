@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class EmployeeMode : NetworkBehaviour
 {
+
+    public GameObject employeeModeButton;
 
     void Start()
     {
@@ -19,6 +22,8 @@ public class EmployeeMode : NetworkBehaviour
 
         if (DataBase.employeeModeIsActivated == false)
         {
+            employeeModeButton.GetComponent<Image>().color = new Color32(149, 149, 149, 255);
+
             for (int i = 0; i < DataBase.buildingsList.Count; i++)
             {
                 if (DataBase.buildingsList[i].owner == "Server" && isServer)
