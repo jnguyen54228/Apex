@@ -49,6 +49,8 @@ public class EmployeeMode : NetworkBehaviour
 
         else if (DataBase.employeeModeIsActivated == true) {
 
+            employeeModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
             for (int i = 0; i < DataBase.buildingsList.Count; i++)
             {
                 GameObject.Find(DataBase.buildingsList[i].buildingName).GetComponent<SpriteRenderer>().color = Color.white;

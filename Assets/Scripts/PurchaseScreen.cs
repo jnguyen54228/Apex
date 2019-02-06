@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class PurchaseScreen : MonoBehaviour //Class used for displaying the building purchase screen
+public class PurchaseScreen : NetworkBehaviour //Class used for displaying the building purchase screen
 {
     public GameObject purchaseScreen;
     public GameObject buildingName;
@@ -44,37 +45,72 @@ public class PurchaseScreen : MonoBehaviour //Class used for displaying the buil
 
     void OnMouseDown()
     {
-        if (DataBase.highlightBuildingTest == true)
+        if (DataBase.previousBuilding != null)
         {
-            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white; //change the color of the building that was 
-        }                                                                                 //just clicked off of back to white
-
-        for (int i = 0; i < buildingsList.Count; i++) {  //finds that building that is clicked on and adds its values to the purchase screen
-            if (gameObject.name == buildingsList[i].buildingName) {
-                if (DataBase.buildingsList[i].buildingBought == true)
+            for (int ii = 0; ii < DataBase.buildingsList.Count; ii++) //change the color of the building that was 
+                                                                      //just clicked off of back to white or back to blue/red if its in employee mode
+            {
+                if (DataBase.employeeModeIsActivated == true)
                 {
-                    employeeCapText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeeCap).ToString();
-                    employeesOwnedText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeesOwned).ToString();
-                    buildingInfo.SetActive(true);
+                    if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Server" && isServer)
+                    {
+                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.blue;
+                        break;
+                    }
+                    else if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Client" && isServer)
+                    {
+                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.red;
+                        break;
+                    }
+                    else if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Client" && isClient)
+                    {
+                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.blue;
+                        break;
+                    }
+                    else if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Server" && isClient)
+                    {
+                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.red;
+                        break;
+                    }
                 }
-                else {
-                    buildingInfo.SetActive(false);
+                else
+                {
+                    DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white; //change the color of the building that was 
+                    break;                                                                              //just clicked off of back to white
                 }
-
-                buildingPrice.GetComponent<Text>().text = "$" + buildingsList[i].buildingPrice;
-                buildingRevenue.GetComponent<Text>().text = "$" + buildingsList[i].revenue;
-                DataBase.currentBuildingPrice = buildingsList[i].buildingPrice;
-                DataBase.currentBuilding = gameObject.name;
             }
         }
 
-        buildingName.GetComponent<Text>().text = gameObject.name;
-        buildingImage.GetComponent<Image>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-        purchaseScreen.SetActive(true);
-        DataBase.highlightBuildingTest = true;
-        DataBase.previousBuilding = gameObject;
+        for (int i = 0; i < buildingsList.Count; i++)
+            {  //finds that building that is clicked on and adds its values to the purchase screen
+                if (gameObject.name == buildingsList[i].buildingName)
+                {
+                    if (DataBase.buildingsList[i].buildingBought == true)
+                    {
+                        employeeCapText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeeCap).ToString();
+                        employeesOwnedText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeesOwned).ToString();
+                        buildingInfo.SetActive(true);
+                    }
+                    else
+                    {
+                        buildingInfo.SetActive(false);
+                    }
+
+                    buildingPrice.GetComponent<Text>().text = "$" + buildingsList[i].buildingPrice;
+                    buildingRevenue.GetComponent<Text>().text = "$" + buildingsList[i].revenue;
+                    DataBase.currentBuildingPrice = buildingsList[i].buildingPrice;
+                    DataBase.currentBuilding = gameObject.name;
+                }
+            }
+
+            buildingName.GetComponent<Text>().text = gameObject.name;
+            buildingImage.GetComponent<Image>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+            purchaseScreen.SetActive(true);
+            DataBase.highlightBuildingTest = true;
+            DataBase.previousBuilding = gameObject;
         }
+
 
     public class Building
     {
