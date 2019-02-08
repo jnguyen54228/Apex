@@ -49,14 +49,15 @@ public class EmployeeMode : NetworkBehaviour
 
         else if (DataBase.employeeModeIsActivated == true) {
 
-            employeeModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            employeeModeButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255); //employee button back to normal
 
-            for (int i = 0; i < DataBase.buildingsList.Count; i++)
+            for (int i = 0; i < DataBase.buildingsList.Count; i++) //turns all of the colors back to normal
             {
                 GameObject.Find(DataBase.buildingsList[i].buildingName).GetComponent<SpriteRenderer>().color = Color.white;
             }
 
             DataBase.employeeModeIsActivated = false;
+            DataBase.EmployeeModeHighlightBuildingTest = false;
         }
     }
 }

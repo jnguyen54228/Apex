@@ -41,44 +41,28 @@ public class PurchaseScreen : NetworkBehaviour //Class used for displaying the b
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.Find("Purchase Screen").activeInHierarchy == false) {
+            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 
     void OnMouseDown()
     {
-        if (DataBase.previousBuilding != null)
+        if (DataBase.employeeModeIsActivated == true) //for situations where a building needs to back to red/blue after being highlighted yellow
         {
-            for (int ii = 0; ii < DataBase.buildingsList.Count; ii++) //change the color of the building that was 
-                                                                      //just clicked off of back to white or back to blue/red if its in employee mode
-            {
-                if (DataBase.employeeModeIsActivated == true)
-                {
-                    if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Server" && isServer)
-                    {
-                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.blue;
-                        break;
-                    }
-                    else if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Client" && isServer)
-                    {
-                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.red;
-                        break;
-                    }
-                    else if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Client" && isClient)
-                    {
-                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.blue;
-                        break;
-                    }
-                    else if (DataBase.previousBuilding.name == DataBase.buildingsList[ii].buildingName && DataBase.buildingsList[ii].owner == "Server" && isClient)
-                    {
-                        DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.red;
-                        break;
-                    }
-                }
-                else
-                {
-                    DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white; //change the color of the building that was 
-                    break;                                                                              //just clicked off of back to white
-                }
+            if (DataBase.EmployeeModeHighlightBuildingTest == true) {
+
+                DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = DataBase.employeeModePreviousColor;
             }
+
+            DataBase.employeeModePreviousColor = gameObject.GetComponent<SpriteRenderer>().color;
+
+            DataBase.EmployeeModeHighlightBuildingTest = true; //goes back to false when employee mode is deativated in EmployeeMode.cs script
+        }
+        else if(DataBase.highlightBuildingTest == true)
+        {
+            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white; //change the color of the building that was 
+                                                                                            //just clicked off of back to white
         }
 
         for (int i = 0; i < buildingsList.Count; i++)

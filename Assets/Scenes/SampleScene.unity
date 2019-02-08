@@ -24583,6 +24583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6e8e4b196a6ce47ae8c987a9eedeb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  employeeModeButton: {fileID: 1672943841}
 --- !u!1 &1539057761
 GameObject:
   m_ObjectHideFlags: 0

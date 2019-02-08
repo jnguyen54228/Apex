@@ -9,6 +9,7 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static int currentBuildingPrice;
     public static string currentBuilding;
     public static bool highlightBuildingTest = false;
+    public static bool EmployeeModeHighlightBuildingTest = false;
     public static GameObject previousBuilding;
     public static string turn = "server"; //the server gets the first turn of the game
     public static bool serverTurnEnded = false;
@@ -23,6 +24,7 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static int employeePool = 100;
     public static int employeesOwned = 0;
     public static bool employeeModeIsActivated = false;
+    public static Color32 employeeModePreviousColor;
 
     public static IList<Building> buildingsList = new List<Building>() {
 
