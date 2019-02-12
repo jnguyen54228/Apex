@@ -10,7 +10,7 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static string currentBuilding;
     public static bool highlightBuildingTest = false;
     public static bool EmployeeModeHighlightBuildingTest = false;
-    public static GameObject previousBuilding;
+    public static GameObject previousBuilding = null;
     public static string turn = "server"; //the server gets the first turn of the game
     public static bool serverTurnEnded = false;
     public static bool clientTurnEnded = false;

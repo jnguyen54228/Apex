@@ -41,8 +41,8 @@ public class PurchaseScreen : NetworkBehaviour //Class used for displaying the b
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.Find("Purchase Screen").activeInHierarchy == false) {
-            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white;
+        if (purchaseScreen.activeInHierarchy == false && DataBase.previousBuilding != null) {
+            DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = DataBase.employeeModePreviousColor;
         }
     }
 
