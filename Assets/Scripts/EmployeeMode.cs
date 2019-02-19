@@ -8,6 +8,9 @@ public class EmployeeMode : NetworkBehaviour
 {
 
     public GameObject employeeModeButton;
+    public GameObject purchaseScreen;
+    public GameObject employeeScreen;
+    public GameObject buildingName;
 
     void Start()
     {
@@ -15,6 +18,14 @@ public class EmployeeMode : NetworkBehaviour
 
     void Update()
     {
+        if (DataBase.employeeModeIsActivated == true) {
+            employeeScreen.SetActive(true);
+            buildingName.GetComponent<Text>().text = DataBase.currentBuilding;
+        }
+        else if(DataBase.employeeModeIsActivated == false)
+        {
+            employeeScreen.SetActive(false);
+        }
     }
 
     public void EmployeeModeActivation() //employee mode makes it so that all of your buildings show up as blue and all of the opponent's buildings show
@@ -22,7 +33,8 @@ public class EmployeeMode : NetworkBehaviour
 
         if (DataBase.employeeModeIsActivated == false)
         {
-            employeeModeButton.GetComponent<Image>().color = new Color32(149, 149, 149, 255);
+            employeeModeButton.GetComponent<Image>().color = new Color32(149, 149, 149, 255); //darken employee button
+            buildingName.GetComponent<Text>().text = DataBase.currentBuilding;
 
             for (int i = 0; i < DataBase.buildingsList.Count; i++)
             {

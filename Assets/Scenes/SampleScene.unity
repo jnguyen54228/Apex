@@ -24235,7 +24235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1498482544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25301,6 +25301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   employeeModeButton: {fileID: 1672943841}
+  purchaseScreen: {fileID: 1498482543}
+  employeeScreen: {fileID: 96673521}
+  buildingName: {fileID: 395152438}
 --- !u!1 &1539057761
 GameObject:
   m_ObjectHideFlags: 0
