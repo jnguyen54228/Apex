@@ -5847,9 +5847,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1498482543}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1530046614}
+        m_MethodName: ClosePurchaseScreen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -25121,6 +25121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   purchaseScreen: {fileID: 1498482543}
+  employeeScreen: {fileID: 96673521}
   winScreen: {fileID: 1633693523}
   loseScreen: {fileID: 1505710900}
 --- !u!114 &1530046615
@@ -32141,9 +32142,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 96673521}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1530046614}
+        m_MethodName: CloseEmployeeScreen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
