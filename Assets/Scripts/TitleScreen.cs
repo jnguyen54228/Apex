@@ -19,6 +19,14 @@ public class TitleScreen : MonoBehaviour
 
     public void PlayButton()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("SampleScene");
+    }
+    public void OptionsButton()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+    public void QuitButton()
+    {
+        Application.Quit();
     }
 }
