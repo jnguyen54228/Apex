@@ -13,7 +13,7 @@ public class GUIController : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         purchaseScreen.SetActive(false);
-        employeeScreen.SetActive(false)
+        employeeScreen.SetActive(false);
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
     }
