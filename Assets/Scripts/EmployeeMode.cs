@@ -119,17 +119,17 @@ public class EmployeeMode : NetworkBehaviour
         }
     }
 
-    public void addEmployees()
+    public void AddEmployees()
     {
         addEmp = true;
     }
 
-    public void removeEmployees()
+    public void RemoveEmployees()
     {
         removeEmp = true;
     }
 
-    public void confirmed()
+    public void Confirmed()
     {
         for (int i = 0; i < DataBase.buildingsList.Count; i++)
         {
