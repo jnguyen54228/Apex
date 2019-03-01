@@ -10,11 +10,13 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject purchaseScreen;
     public GameObject employeeScreen;
     public GameObject buildingName;
-    public GameObject plusAndMinus;
-    public GameObject confirm;
-    public bool addEmp;
-    public bool removeEmp;
-    public int pM = 0;
+    public GameObject employeeNumber;
+    public GameObject buildingInfoEmployees;
+    public GameObject buildingInfoEmployeeCap;
+    public bool addEmployee;
+    public bool removeEmployee;
+    public int adjustedNumberOfEmployees = 0;
+    public string localCurrentBuilding = null;
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -53,16 +55,34 @@ public class EmployeeMode : NetworkBehaviour
     {
         if (DataBase.employeeModeIsActivated == true)
         {
+            if (localCurrentBuilding == null) {
+                //nothing
+            }
+            else if (DataBase.currentBuilding != localCurrentBuilding) { //make sure that the info changes to match the correct info when a new building is clicked on
+
+                for (int i = 0; i < DataBase.buildingsList.Count; i++)
+                {
+                    if (DataBase.currentBuilding == buildingsList[i].buildingName)
+                    {
+                        adjustedNumberOfEmployees = buildingsList[i].employeesOwned;
+                        buildingInfoEmployees.GetComponent<Text>().text = buildingsList[i].employeesOwned.ToString();
+                        buildingInfoEmployeeCap.GetComponent<Text>().text = buildingsList[i].employeeCap.ToString();
+                    }
+                }
+            }
+
+            localCurrentBuilding = DataBase.currentBuilding;
             employeeScreen.SetActive(true);
             buildingName.GetComponent<Text>().text = DataBase.currentBuilding;
-            plusAndMinus.GetComponent<Text>().text = pM.ToString();
-            if (addEmp == true)
+            employeeNumber.GetComponent<Text>().text = adjustedNumberOfEmployees.ToString();
+
+            if (addEmployee == true)
             {
-                pM++;
+                adjustedNumberOfEmployees++;
             }
-            if (removeEmp == true && pM > 0)
+            if (removeEmployee == true && adjustedNumberOfEmployees > 0)
             {
-                pM--;
+                adjustedNumberOfEmployees--;
             }
         }
         else if (DataBase.employeeModeIsActivated == false)
@@ -70,8 +90,8 @@ public class EmployeeMode : NetworkBehaviour
             employeeScreen.SetActive(false);
         }
 
-        addEmp = false;
-        removeEmp = false;
+        addEmployee = false;
+        removeEmployee = false;
     }
 
     public void EmployeeModeActivation() //employee mode makes it so that all of your buildings show up as blue and all of the opponent's buildings show
@@ -102,6 +122,14 @@ public class EmployeeMode : NetworkBehaviour
             }
 
             DataBase.employeeModeIsActivated = true;
+
+            for (int i = 0; i < DataBase.buildingsList.Count; i++) //display current number of employees the building has in the number that is supposed to be adjusted
+            {
+                if (DataBase.currentBuilding == buildingsList[i].buildingName)
+                {
+                    adjustedNumberOfEmployees = buildingsList[i].employeesOwned;
+                }
+            }
         }
 
         else if (DataBase.employeeModeIsActivated == true)
@@ -121,12 +149,12 @@ public class EmployeeMode : NetworkBehaviour
 
     public void AddEmployees()
     {
-        addEmp = true;
+        addEmployee = true;
     }
 
     public void RemoveEmployees()
     {
-        removeEmp = true;
+        removeEmployee = true;
     }
 
     public void Confirmed()
@@ -135,10 +163,11 @@ public class EmployeeMode : NetworkBehaviour
         {
             if (DataBase.currentBuilding == buildingsList[i].buildingName)
             {
-                buildingsList[i].employeesOwned = pM;
+                buildingsList[i].employeesOwned = adjustedNumberOfEmployees;
+                DataBase.buildingsList[i].employeesOwned = adjustedNumberOfEmployees; //makes sure the data base has the new info
+                buildingInfoEmployees.GetComponent<Text>().text = adjustedNumberOfEmployees.ToString();
             }
         }
-        pM = 0;
     }
 
     public class Building
