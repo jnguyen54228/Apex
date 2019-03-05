@@ -53,6 +53,14 @@ public class PurchaseScreen : NetworkBehaviour //Class used for displaying the b
     {
         if (DataBase.employeeModeIsActivated == true) //for situations where a building needs to back to red/blue after being highlighted yellow
         {
+            if (DataBase.previousBuilding != null)
+            {
+                if (DataBase.previousBuilding.GetComponent<SpriteRenderer>().color == Color.yellow)
+                {
+                    DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+            }
+
             if (DataBase.EmployeeModeHighlightBuildingTest == true) {
 
                 DataBase.previousBuilding.GetComponent<SpriteRenderer>().color = DataBase.employeeModePreviousColor;

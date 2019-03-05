@@ -13,10 +13,13 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject employeeNumber;
     public GameObject buildingInfoEmployees;
     public GameObject buildingInfoEmployeeCap;
-    public bool addEmployee;
-    public bool removeEmployee;
-    public int adjustedNumberOfEmployees = 0;
-    public string localCurrentBuilding = null;
+    public GameObject employeePool;
+    private bool addEmployee;
+    private bool removeEmployee;
+    private int adjustedNumberOfEmployees = 0;
+    private int currentEmployeeCap; //employee cap of the selected building
+    private int currentEmployeesOwned; //employees owned of the selected building
+    private string localCurrentBuilding = null;
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -55,10 +58,24 @@ public class EmployeeMode : NetworkBehaviour
     {
         if (DataBase.employeeModeIsActivated == true)
         {
-            if (localCurrentBuilding == null) {
+            if (localCurrentBuilding == null)
+            {
                 //nothing
             }
-            else if (DataBase.currentBuilding != localCurrentBuilding) { //make sure that the info changes to match the correct info when a new building is clicked on
+            else if (DataBase.currentBuilding == localCurrentBuilding) { //fixes bug that doesn't display the employee cap for the first building the is clicked on
+                for (int i = 0; i < DataBase.buildingsList.Count; i++)
+                {
+                    if (DataBase.currentBuilding == buildingsList[i].buildingName)
+                    {
+                        buildingInfoEmployeeCap.GetComponent<Text>().text = buildingsList[i].employeeCap.ToString();
+
+                        currentEmployeesOwned = buildingsList[i].employeesOwned;
+                        currentEmployeeCap = buildingsList[i].employeeCap;
+                    }
+                }
+            }
+            else if (DataBase.currentBuilding != localCurrentBuilding)
+            { //make sure that the info changes to match the correct info when a new building is clicked on
 
                 for (int i = 0; i < DataBase.buildingsList.Count; i++)
                 {
@@ -67,6 +84,9 @@ public class EmployeeMode : NetworkBehaviour
                         adjustedNumberOfEmployees = buildingsList[i].employeesOwned;
                         buildingInfoEmployees.GetComponent<Text>().text = buildingsList[i].employeesOwned.ToString();
                         buildingInfoEmployeeCap.GetComponent<Text>().text = buildingsList[i].employeeCap.ToString();
+
+                        currentEmployeesOwned = buildingsList[i].employeesOwned;
+                        currentEmployeeCap = buildingsList[i].employeeCap;
                     }
                 }
             }
@@ -76,9 +96,9 @@ public class EmployeeMode : NetworkBehaviour
             buildingName.GetComponent<Text>().text = DataBase.currentBuilding;
             employeeNumber.GetComponent<Text>().text = adjustedNumberOfEmployees.ToString();
 
-            if (addEmployee == true)
-            {
-                adjustedNumberOfEmployees++;
+            if (addEmployee == true && adjustedNumberOfEmployees < currentEmployeeCap && adjustedNumberOfEmployees - currentEmployeesOwned < DataBase.employeePool) 
+            {                                                                                                      //^ Makes sure that you can only add employees if
+                adjustedNumberOfEmployees++;                                                                       // the employee pool still has them
             }
             if (removeEmployee == true && adjustedNumberOfEmployees > 0)
             {
@@ -139,6 +159,7 @@ public class EmployeeMode : NetworkBehaviour
 
             for (int i = 0; i < DataBase.buildingsList.Count; i++) //turns all of the colors back to normal
             {
+                if(GameObject.Find(DataBase.buildingsList[i].buildingName).GetComponent<SpriteRenderer>().color != Color.yellow) //only change blue/red building back to white
                 GameObject.Find(DataBase.buildingsList[i].buildingName).GetComponent<SpriteRenderer>().color = Color.white;
             }
 
@@ -159,6 +180,16 @@ public class EmployeeMode : NetworkBehaviour
 
     public void Confirmed()
     {
+        if (adjustedNumberOfEmployees > currentEmployeesOwned)
+        {
+            DataBase.employeePool -= (adjustedNumberOfEmployees - currentEmployeesOwned);
+            employeePool.GetComponent<Text>().text = DataBase.employeePool.ToString();
+        }
+        else if (adjustedNumberOfEmployees < currentEmployeesOwned) {
+            DataBase.employeePool += (currentEmployeesOwned - adjustedNumberOfEmployees);
+            employeePool.GetComponent<Text>().text = DataBase.employeePool.ToString();
+        }
+
         for (int i = 0; i < DataBase.buildingsList.Count; i++)
         {
             if (DataBase.currentBuilding == buildingsList[i].buildingName)
