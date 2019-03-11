@@ -25791,6 +25791,7 @@ MonoBehaviour:
   buildingInfoEmployees: {fileID: 1421575437}
   buildingInfoEmployeeCap: {fileID: 1282845873}
   employeePool: {fileID: 231894597}
+  doNotOwnScreenBuilding: {fileID: 1034807293}
 --- !u!1 &1539057761
 GameObject:
   m_ObjectHideFlags: 0

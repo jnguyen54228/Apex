@@ -15,6 +15,7 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject buildingInfoEmployees;
     public GameObject buildingInfoEmployeeCap;
     public GameObject employeePool;
+    public GameObject doNotOwnScreenBuilding;
     private bool addEmployee;
     private bool removeEmployee;
     private int adjustedNumberOfEmployees = 0;
@@ -64,20 +65,21 @@ public class EmployeeMode : NetworkBehaviour
             {       //checks if the current building is owned by the server/client
                 if (DataBase.currentBuilding == DataBase.buildingsList[i].buildingName)
                 {
-                    if (isServer && DataBase.buildingsList[i].owner != "Server")
-                    {
-                        doNotOwnScreen.SetActive(true);
-                        ownedBuilding = false;
-                    }
-                    else if (isClient && DataBase.buildingsList[i].owner != "Client")
-                    {
-                        doNotOwnScreen.SetActive(true);
-                        ownedBuilding = false;
-                    }
-                    else
+                    if (isServer && DataBase.buildingsList[i].owner == "Server")
                     {
                         doNotOwnScreen.SetActive(false);
                         ownedBuilding = true;
+                    }
+                    else if (isClient && DataBase.buildingsList[i].owner == "Client")
+                    {
+                        doNotOwnScreen.SetActive(false);
+                        ownedBuilding = true;
+                    }
+                    else
+                    {
+                        doNotOwnScreenBuilding.GetComponent<Text>().text = DataBase.currentBuilding;
+                        doNotOwnScreen.SetActive(true);
+                        ownedBuilding = false;
                     }
 
                     break;
