@@ -9,6 +9,7 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject employeeModeButton;
     public GameObject purchaseScreen;
     public GameObject employeeScreen;
+    public GameObject doNotOwnScreen;
     public GameObject buildingName;
     public GameObject employeeNumber;
     public GameObject buildingInfoEmployees;
@@ -20,6 +21,7 @@ public class EmployeeMode : NetworkBehaviour
     private int currentEmployeeCap; //employee cap of the selected building
     private int currentEmployeesOwned; //employees owned of the selected building
     private string localCurrentBuilding = null;
+    private bool ownedBuilding;
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -58,10 +60,41 @@ public class EmployeeMode : NetworkBehaviour
     {
         if (DataBase.employeeModeIsActivated == true)
         {
+            for (int i = 0; i < DataBase.buildingsList.Count; i++)
+            {       //checks if the current building is owned by the server/client
+                if (DataBase.currentBuilding == DataBase.buildingsList[i].buildingName)
+                {
+                    if (isServer && DataBase.buildingsList[i].owner != "Server")
+                    {
+                        doNotOwnScreen.SetActive(true);
+                        ownedBuilding = false;
+                    }
+                    else if (isClient && DataBase.buildingsList[i].owner != "Client")
+                    {
+                        doNotOwnScreen.SetActive(true);
+                        ownedBuilding = false;
+                    }
+                    else
+                    {
+                        doNotOwnScreen.SetActive(false);
+                        ownedBuilding = true;
+                    }
+
+                    break;
+                }
+            }
+        }
+        else if (DataBase.employeeModeIsActivated == false) {
+            doNotOwnScreen.SetActive(false);
+        }
+
+        if (DataBase.employeeModeIsActivated == true && ownedBuilding == true)
+        {
             if (localCurrentBuilding == null)
             {
                 //nothing
             }
+
             else if (DataBase.currentBuilding == localCurrentBuilding) { //fixes bug that doesn't display the employee cap for the first building the is clicked on
                 for (int i = 0; i < DataBase.buildingsList.Count; i++)
                 {

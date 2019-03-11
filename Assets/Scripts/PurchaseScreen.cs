@@ -51,6 +51,8 @@ public class PurchaseScreen : NetworkBehaviour //Class used for displaying the b
 
     void OnMouseDown()
     {
+        DataBase.currentBuildingObject = gameObject;
+
         if (DataBase.employeeModeIsActivated == true) //for situations where a building needs to back to red/blue after being highlighted yellow
         {
             if (DataBase.previousBuilding != null)

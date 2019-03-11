@@ -24,12 +24,13 @@ public class PlayerController : NetworkBehaviour {
 
     private GameObject dayText;
     private GameObject cashText;
-
+    private GameObject employeePoolText;
 
     void Start () {
 
         dayText = GameObject.Find("Day");
         cashText = GameObject.Find("Cash");
+        employeePoolText = GameObject.Find("Employee Pool");
     }
 	
 	void Update () {
@@ -54,7 +55,7 @@ public class PlayerController : NetworkBehaviour {
                 dayText.GetComponent<Text>().text = DataBase.day.ToString();
             }*/
 
-            RpcUpdateTurnOnClient(DataBase.day);
+            RpcUpdateTurnOnClient(DataBase.day, DataBase.employeePool);
 
             DataBase.serverTurnEnded = false; 
         }
@@ -71,7 +72,7 @@ public class PlayerController : NetworkBehaviour {
             DataBase.day++;
             dayText.GetComponent<Text>().text = DataBase.day.ToString();
 
-            CmdUpdateTurnOnServer(DataBase.day);
+            CmdUpdateTurnOnServer(DataBase.day, DataBase.employeePool);
             DataBase.clientTurnEnded = false;
         }
 
@@ -119,7 +120,7 @@ public class PlayerController : NetworkBehaviour {
     }
 
     [Command]
-    void CmdUpdateTurnOnServer(int day) {
+    void CmdUpdateTurnOnServer(int day, int newEmployeePool) {
         DataBase.turns++;
         DataBase.day = day;
         dayText.GetComponent<Text>().text = DataBase.day.ToString();
@@ -127,10 +128,12 @@ public class PlayerController : NetworkBehaviour {
         //DataBase.cash += DataBase.totalRevenue;  //this is the old way of adding revenue per turn
         DataBase.cash = DataBase.AddRevenue();
         cashText.GetComponent<Text>().text = DataBase.cash.ToString();
+        DataBase.employeePool = newEmployeePool;
+        employeePoolText.GetComponent<Text>().text = newEmployeePool.ToString();
     }
 
     [ClientRpc]
-    void RpcUpdateTurnOnClient(int day) {
+    void RpcUpdateTurnOnClient(int day, int newEmployeePool) {
         DataBase.turns++;
         DataBase.day = day;
         dayText.GetComponent<Text>().text = DataBase.day.ToString();
@@ -140,6 +143,8 @@ public class PlayerController : NetworkBehaviour {
             //DataBase.cash += DataBase.totalRevenue;
             DataBase.cash = DataBase.AddRevenue();
             cashText.GetComponent<Text>().text = DataBase.cash.ToString();
+            DataBase.employeePool = newEmployeePool;
+            employeePoolText.GetComponent<Text>().text = newEmployeePool.ToString();
         }
     }
 
