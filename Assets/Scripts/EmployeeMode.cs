@@ -16,6 +16,9 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject buildingInfoEmployeeCap;
     public GameObject employeePool;
     public GameObject doNotOwnScreenBuilding;
+    public GameObject employeeCostText;
+    public GameObject cash;
+    private int employeeCost = 0;
     private bool addEmployee;
     private bool removeEmployee;
     private int adjustedNumberOfEmployees = 0;
@@ -65,7 +68,13 @@ public class EmployeeMode : NetworkBehaviour
             {       //checks if the current building is owned by the server/client
                 if (DataBase.currentBuilding == DataBase.buildingsList[i].buildingName)
                 {
-                    if (isServer && DataBase.buildingsList[i].owner == "Server")
+                    if(isServer && DataBase.buildingsList[i].owner == "Client")
+                    {
+                        doNotOwnScreenBuilding.GetComponent<Text>().text = DataBase.currentBuilding;
+                        doNotOwnScreen.SetActive(true);
+                        ownedBuilding = false;
+                    }
+                    else if (isServer && DataBase.buildingsList[i].owner == "Server")
                     {
                         doNotOwnScreen.SetActive(false);
                         ownedBuilding = true;
@@ -131,13 +140,31 @@ public class EmployeeMode : NetworkBehaviour
             buildingName.GetComponent<Text>().text = DataBase.currentBuilding;
             employeeNumber.GetComponent<Text>().text = adjustedNumberOfEmployees.ToString();
 
-            if (addEmployee == true && adjustedNumberOfEmployees < currentEmployeeCap && adjustedNumberOfEmployees - currentEmployeesOwned < DataBase.employeePool) 
+            if (addEmployee == true && adjustedNumberOfEmployees < currentEmployeeCap && adjustedNumberOfEmployees - currentEmployeesOwned < DataBase.employeePool && employeeCost < DataBase.cash) 
             {                                                                                                      //^ Makes sure that you can only add employees if
                 adjustedNumberOfEmployees++;                                                                       // the employee pool still has them
+
+                for (int i = 0; i < DataBase.buildingsList.Count; i++)
+                {
+                    if (DataBase.currentBuilding == buildingsList[i].buildingName)
+                    {
+                        employeeCost += buildingsList[i].employeeCap; //the current cost for an employee is the employee cap of that building (probably will change)
+                        employeeCostText.GetComponent<Text>().text = employeeCost.ToString();
+                    }
+                }
             }
             if (removeEmployee == true && adjustedNumberOfEmployees > 0)
             {
                 adjustedNumberOfEmployees--;
+
+                for (int i = 0; i < DataBase.buildingsList.Count; i++)
+                {
+                    if (DataBase.currentBuilding == buildingsList[i].buildingName)
+                    {
+                        employeeCost -= buildingsList[i].employeeCap; //the current cost for an employee is the employee cap of that building (probably will change)
+                        employeeCostText.GetComponent<Text>().text = employeeCost.ToString();
+                    }
+                }
             }
         }
         else if (DataBase.employeeModeIsActivated == false)
@@ -234,6 +261,12 @@ public class EmployeeMode : NetworkBehaviour
                 buildingInfoEmployees.GetComponent<Text>().text = adjustedNumberOfEmployees.ToString();
             }
         }
+
+        DataBase.cash -= employeeCost;
+        cash.GetComponent<Text>().text = DataBase.cash.ToString();
+
+        employeeCost = 0;
+        employeeCostText.GetComponent<Text>().text = employeeCost.ToString();
     }
 
     public class Building
