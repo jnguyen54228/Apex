@@ -126,7 +126,7 @@ public class PlayerController : NetworkBehaviour {
         dayText.GetComponent<Text>().text = DataBase.day.ToString();
         DataBase.turn = "server";
         //DataBase.cash += DataBase.totalRevenue;  //this is the old way of adding revenue per turn
-        DataBase.cash = DataBase.AddRevenue();
+        DataBase.cash += DataBase.totalRevenue;
         cashText.GetComponent<Text>().text = DataBase.cash.ToString();
         DataBase.employeePool = newEmployeePool;
         employeePoolText.GetComponent<Text>().text = newEmployeePool.ToString();
@@ -141,7 +141,7 @@ public class PlayerController : NetworkBehaviour {
         if (!isServer)
         {
             //DataBase.cash += DataBase.totalRevenue;
-            DataBase.cash = DataBase.AddRevenue();
+            DataBase.cash += DataBase.totalRevenue;
             cashText.GetComponent<Text>().text = DataBase.cash.ToString();
             DataBase.employeePool = newEmployeePool;
             employeePoolText.GetComponent<Text>().text = newEmployeePool.ToString();

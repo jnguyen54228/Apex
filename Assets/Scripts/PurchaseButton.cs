@@ -66,29 +66,6 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
     {
         if (DataBase.cash >= DataBase.currentBuildingPrice) //if the player has enough money to purchse the building
         {
-            int price = DataBase.currentBuildingPrice;
-
-            if (price == 20)
-            {
-                DataBase.ownedBuildingTypes[0, 0]++;
-            }
-            else if (price == 30)
-            {
-                DataBase.ownedBuildingTypes[1, 0]++;
-            }
-            else if (price == 50)
-            {
-                DataBase.ownedBuildingTypes[2, 0]++;
-            }
-            else if (price == 70)
-            {
-                DataBase.ownedBuildingTypes[3, 0]++;
-            }
-            else if (price == 100)
-            {
-                DataBase.ownedBuildingTypes[4, 0]++;
-            }
-
             DataBase.cash -= DataBase.currentBuildingPrice;
             cashText.GetComponent<Text>().text = "$" + DataBase.cash.ToString();
 

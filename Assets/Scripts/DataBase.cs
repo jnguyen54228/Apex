@@ -44,18 +44,8 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
         new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0}
     };
 
-    public static int[,] ownedBuildingTypes = new int[5, 2] { { 0, 20 }, { 0, 30 }, { 0, 50 }, { 0, 70}, { 0, 100} }; //the second number of each array represents
+   // public static int[,] ownedBuildingTypes = new int[5, 2] { { 0, 20 }, { 0, 30 }, { 0, 50 }, { 0, 70}, { 0, 100} }; //the second number of each array represents
                                                                                                                       //the price of the building
-    public static int AddRevenue()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            cash = cash + (ownedBuildingTypes[i, 0] * (ownedBuildingTypes[i, 1] / 2)); //revenue = half of the sum of the prices of the buildings you own
-        }
-
-        return cash;
-    }
-
     public class Building
     {
         public string buildingName { get; set; }

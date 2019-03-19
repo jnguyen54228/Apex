@@ -18,6 +18,8 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject doNotOwnScreenBuilding;
     public GameObject employeeCostText;
     public GameObject cash;
+    public GameObject buildingRevenueText;
+    public GameObject totalRevenueText;
     private int employeeCost = 0;
     private bool addEmployee;
     private bool removeEmployee;
@@ -134,6 +136,13 @@ public class EmployeeMode : NetworkBehaviour
             employeeScreen.SetActive(true);
             buildingName.GetComponent<Text>().text = DataBase.currentBuilding;
             employeeNumber.GetComponent<Text>().text = adjustedNumberOfEmployees.ToString();
+            for (int i = 0; i < DataBase.buildingsList.Count; i++)
+            {
+                if (DataBase.currentBuilding == buildingsList[i].buildingName)
+                {
+                    buildingRevenueText.GetComponent<Text>().text =  "$" + DataBase.buildingsList[i].revenue.ToString();
+                }
+            }
 
             if (addEmployee == true && adjustedNumberOfEmployees < currentEmployeeCap && adjustedNumberOfEmployees - currentEmployeesOwned < DataBase.employeePool && employeeCost < DataBase.cash) 
             {                                                                                                      //^ Makes sure that you can only add employees if
@@ -141,7 +150,7 @@ public class EmployeeMode : NetworkBehaviour
 
                 for (int i = 0; i < DataBase.buildingsList.Count; i++)
                 {
-                    if (DataBase.currentBuilding == buildingsList[i].buildingName && employeeCost + buildingsList[i].employeeCap < DataBase.cash)
+                    if (DataBase.currentBuilding == buildingsList[i].buildingName && employeeCost + buildingsList[i].employeeCap <= DataBase.cash)
                     {
                         adjustedNumberOfEmployees++;
                         employeeCost += buildingsList[i].employeeCap; //the current cost for an employee is the employee cap of that building (probably will change)
@@ -255,6 +264,24 @@ public class EmployeeMode : NetworkBehaviour
                 buildingsList[i].employeesOwned = adjustedNumberOfEmployees;
                 DataBase.buildingsList[i].employeesOwned = adjustedNumberOfEmployees; //makes sure the data base has the new info
                 buildingInfoEmployees.GetComponent<Text>().text = adjustedNumberOfEmployees.ToString();
+
+                if (adjustedNumberOfEmployees > currentEmployeesOwned)
+                {
+                    buildingsList[i].revenue += (buildingsList[i].employeeCap * (adjustedNumberOfEmployees - currentEmployeesOwned));
+                    DataBase.buildingsList[i].revenue = buildingsList[i].revenue;
+                    buildingRevenueText.GetComponent<Text>().text = "$" + buildingsList[i].revenue.ToString();
+
+                    DataBase.totalRevenue += (buildingsList[i].employeeCap * (adjustedNumberOfEmployees - currentEmployeesOwned));
+                    totalRevenueText.GetComponent<Text>().text = "$" + DataBase.totalRevenue;
+                }
+                else if (adjustedNumberOfEmployees < currentEmployeesOwned) {
+                    buildingsList[i].revenue -= (buildingsList[i].employeeCap * (currentEmployeesOwned - adjustedNumberOfEmployees));
+                    DataBase.buildingsList[i].revenue = buildingsList[i].revenue;
+                    buildingRevenueText.GetComponent<Text>().text = "$" + buildingsList[i].revenue.ToString();
+
+                    DataBase.totalRevenue -= (buildingsList[i].employeeCap * (currentEmployeesOwned - adjustedNumberOfEmployees));
+                    totalRevenueText.GetComponent<Text>().text = "$" + DataBase.totalRevenue;
+                }
             }
         }
 
