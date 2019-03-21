@@ -25876,6 +25876,7 @@ MonoBehaviour:
   cash: {fileID: 957264778}
   buildingRevenueText: {fileID: 1154376358}
   totalRevenueText: {fileID: 297827861}
+  totalEmployeesOwned: {fileID: 1008672103}
 --- !u!1 &1539057761
 GameObject:
   m_ObjectHideFlags: 0

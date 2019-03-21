@@ -20,6 +20,7 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject cash;
     public GameObject buildingRevenueText;
     public GameObject totalRevenueText;
+    public GameObject totalEmployeesOwned;
     private int employeeCost = 0;
     private bool addEmployee;
     private bool removeEmployee;
@@ -273,6 +274,9 @@ public class EmployeeMode : NetworkBehaviour
 
                     DataBase.totalRevenue += (buildingsList[i].employeeCap * (adjustedNumberOfEmployees - currentEmployeesOwned));
                     totalRevenueText.GetComponent<Text>().text = "$" + DataBase.totalRevenue;
+
+                    DataBase.employeesOwned += (adjustedNumberOfEmployees - currentEmployeesOwned);
+                    totalEmployeesOwned.GetComponent<Text>().text = DataBase.employeesOwned.ToString();
                 }
                 else if (adjustedNumberOfEmployees < currentEmployeesOwned) {
                     buildingsList[i].revenue -= (buildingsList[i].employeeCap * (currentEmployeesOwned - adjustedNumberOfEmployees));
@@ -281,6 +285,9 @@ public class EmployeeMode : NetworkBehaviour
 
                     DataBase.totalRevenue -= (buildingsList[i].employeeCap * (currentEmployeesOwned - adjustedNumberOfEmployees));
                     totalRevenueText.GetComponent<Text>().text = "$" + DataBase.totalRevenue;
+
+                    DataBase.employeesOwned -= (currentEmployeesOwned - adjustedNumberOfEmployees);
+                    totalEmployeesOwned.GetComponent<Text>().text = DataBase.employeesOwned.ToString();
                 }
             }
         }
