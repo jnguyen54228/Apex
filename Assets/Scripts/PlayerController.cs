@@ -8,41 +8,58 @@ public class PlayerController : NetworkBehaviour {
 
     public static IList<Building> buildingsList = new List<Building>() {
 
-        new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 10, employeeCap = 10, employeesOwned = 0},
-        new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 10, employeeCap = 10, employeesOwned = 0},
-        new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0},
-        new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0},
-        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0},
-        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0},
-        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35, employeeCap = 15, employeesOwned = 0},
-        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35, employeeCap = 15, employeesOwned = 0},
-        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0},
-        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0},
-        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0},
-        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0}
+        new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25},
+        new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25},
+        new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15},
+        new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15},
+        new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25},
+        new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25},
+        new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35, employeeCap = 15, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 35},
+        new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35, employeeCap = 15, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 35},
+        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 50},
+        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25},
+        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15},
+        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25}
     };
 
     private GameObject dayText;
     private GameObject cashText;
     private GameObject employeePoolText;
+    private GameObject employeeModeRevenueText;
+    private GameObject daysWithNoEmployeesText;
+    private GameObject totalRevenue;
 
     void Start () {
 
         dayText = GameObject.Find("Day");
         cashText = GameObject.Find("Cash");
         employeePoolText = GameObject.Find("Employee Pool");
+        employeeModeRevenueText = GameObject.Find("Actual Building Revenue");
+        daysWithNoEmployeesText = GameObject.Find("DaysWithNoEmployees");
+        totalRevenue = GameObject.Find("Total Revenue");
     }
 	
 	void Update () {
 
-        if (DataBase.cash >= 200 && isServer)
+        if (DataBase.cash >= 1000 && isServer)
         {
             DataBase.serverWin = true;
-            RpcUpdateWinOnClient();
+            RpcUpdateClientWinOnClient();
         }
-        else if (DataBase.cash >= 200 && isClient) {
+        else if (DataBase.cash >= 1000 && isClient)
+        {
             DataBase.clientWin = true;
-            CmdUpdateWinOnServer();
+            CmdUpdateServerWinOnServer();
+        }
+        else if (DataBase.day >= 3 && DataBase.employeesOwned == 0 && isServer)
+        {
+            DataBase.clientWin = true;
+            RpcUpdateClientWinOnClient();
+        }
+        else if (DataBase.day >= 3 && DataBase.employeesOwned == 0 && isClient)
+        {
+            DataBase.serverWin = true;
+            CmdUpdateServerWinOnServer();
         }
 
         if (DataBase.serverTurnEnded == true && hasAuthority) //if the end turn button has been pressed...
@@ -130,6 +147,29 @@ public class PlayerController : NetworkBehaviour {
         cashText.GetComponent<Text>().text = DataBase.cash.ToString();
         DataBase.employeePool = newEmployeePool;
         employeePoolText.GetComponent<Text>().text = newEmployeePool.ToString();
+
+        for (int i = 0; i < DataBase.buildingsList.Count; i++) //if one of your buildings has 0 employees for 3 days, you will no longer generate revenue for that building
+        {
+            if (isServer && DataBase.buildingsList[i].owner == "Server") {
+                if (DataBase.buildingsList[i].employeesOwned == 0)
+                {
+                    DataBase.buildingsList[i].daysWithNoEmployees++;
+                    //daysWithNoEmployeesText.GetComponent<Text>().text = DataBase.buildingsList[i].daysWithNoEmployees.ToString();
+
+                    if (DataBase.buildingsList[i].daysWithNoEmployees == 3) {
+                        DataBase.buildingsList[i].revenue = 0;
+                        //employeeModeRevenueText.GetComponent<Text>().text = "$0";
+
+                        DataBase.totalRevenue -= DataBase.buildingsList[i].baseRevenue;
+                        totalRevenue.GetComponent<Text>().text = "$" + DataBase.totalRevenue;
+                    }
+                }
+                else if (DataBase.buildingsList[i].employeesOwned > 0)
+                {
+                    DataBase.buildingsList[i].daysWithNoEmployees = 0;
+                }
+            }
+        }
     }
 
     [ClientRpc]
@@ -145,19 +185,56 @@ public class PlayerController : NetworkBehaviour {
             cashText.GetComponent<Text>().text = DataBase.cash.ToString();
             DataBase.employeePool = newEmployeePool;
             employeePoolText.GetComponent<Text>().text = newEmployeePool.ToString();
+
+            for (int i = 0; i < DataBase.buildingsList.Count; i++)
+            {
+                if (isClient && DataBase.buildingsList[i].owner == "Client")
+                {
+                    if (DataBase.buildingsList[i].employeesOwned == 0)
+                    {
+                        DataBase.buildingsList[i].daysWithNoEmployees++;
+                        //daysWithNoEmployeesText.GetComponent<Text>().text = DataBase.buildingsList[i].daysWithNoEmployees.ToString();
+
+                        if (DataBase.buildingsList[i].daysWithNoEmployees == 3) 
+                        {
+                            DataBase.buildingsList[i].revenue = 0;
+                            //employeeModeRevenueText.GetComponent<Text>().text = "$0";
+
+                            DataBase.totalRevenue -= DataBase.buildingsList[i].baseRevenue;
+                            totalRevenue.GetComponent<Text>().text = "$" + DataBase.totalRevenue;
+                        }
+                    }
+                    else if (DataBase.buildingsList[i].employeesOwned > 0)
+                    {
+                        DataBase.buildingsList[i].daysWithNoEmployees = 0;
+                    }
+                }
+            }
         }
     }
 
     [Command]
-    void CmdUpdateWinOnServer()
+    void CmdUpdateClientWinOnServer()
     {
         DataBase.clientWin = true;
     }
 
     [ClientRpc]
-    void RpcUpdateWinOnClient()
+    void RpcUpdateServerWinOnClient()
     {
         DataBase.serverWin = true;
+    }
+
+    [Command]
+    void CmdUpdateServerWinOnServer()
+    {
+        DataBase.serverWin = true;
+    }
+
+    [ClientRpc]
+    void RpcUpdateClientWinOnClient()
+    {
+        DataBase.clientWin = true;
     }
 
     public class Building
@@ -175,5 +252,9 @@ public class PlayerController : NetworkBehaviour {
         public int employeeCap { get; set; }
 
         public int employeesOwned { get; set; }
+
+        public int daysWithNoEmployees { get; set; }
+
+        public int baseRevenue { get; set; }
     }
 }
