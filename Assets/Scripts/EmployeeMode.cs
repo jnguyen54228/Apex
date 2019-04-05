@@ -73,16 +73,19 @@ public class EmployeeMode : NetworkBehaviour
                 {
                     if (isServer && DataBase.buildingsList[i].owner == "Server")
                     {
+                        Debug.Log("test1");
                         doNotOwnScreen.SetActive(false);
                         ownedBuilding = true;
                     }
-                    else if (isClient && DataBase.buildingsList[i].owner == "Client")
+                    else if (!isServer && DataBase.buildingsList[i].owner == "Client")
                     {
+                        Debug.Log("test2");
                         doNotOwnScreen.SetActive(false);
                         ownedBuilding = true;
                     }
                     else
                     {
+                        Debug.Log("test3");
                         doNotOwnScreenBuilding.GetComponent<Text>().text = DataBase.currentBuilding;
                         employeeScreen.SetActive(false);
                         doNotOwnScreen.SetActive(true);
