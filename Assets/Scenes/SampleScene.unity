@@ -25922,6 +25922,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitPanel: {fileID: 1908410593}
+  employeeModeEmployeesText: {fileID: 2130435507}
+  employeeModeBuildingInfoEmployeesText: {fileID: 1421575437}
+  totalEmployeesText: {fileID: 1008672103}
 --- !u!114 &1530046622
 MonoBehaviour:
   m_ObjectHideFlags: 0
