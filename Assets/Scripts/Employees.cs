@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Employees : MonoBehaviour
 {
-    USE THIS SCRIPT TO IMPLEMENT EMPLOYEES LEAVING
+    //USE THIS SCRIPT TO IMPLEMENT EMPLOYEES LEAVING
     void Start()
     {
         
