@@ -6,12 +6,32 @@ using UnityEngine;
 
 public class TurnManager : NetworkBehaviour {
 
+    public static IList<Building> buildingsList = new List<Building>() {
+
+        new Building(){ buildingName = "Office Building 1", employeesLost = 0},
+        new Building(){ buildingName = "Office Building 2", employeesLost = 0},
+        new Building(){ buildingName = "Convenience Store 1", employeesLost = 0},
+        new Building(){ buildingName = "Convenience Store 2", employeesLost = 0},
+        new Building(){ buildingName = "Apartment Building 1", employeesLost = 0},
+        new Building(){ buildingName = "Apartment Building 2", employeesLost = 0},
+        new Building(){ buildingName = "Trade Center 1", employeesLost = 0},
+        new Building(){ buildingName = "Trade Center 2", employeesLost = 0},
+        new Building(){ buildingName = "Club", employeesLost = 0},
+        new Building(){ buildingName = "Super Market", employeesLost = 0},
+        new Building(){ buildingName = "Church", employeesLost = 0},
+        new Building(){ buildingName = "Movie Theater", employeesLost = 0}
+    };
+
     public GameObject waitPanel;
     public GameObject employeeModeEmployeesText;
     public GameObject employeeModeBuildingInfoEmployeesText;
     public GameObject totalEmployeesText;
+    public GameObject totalRevenueText;
+    public GameObject employeeModeRevenueText;
+    public GameObject updateText;
 
     int ranNum;
+    int initialEmployeesOwned;
 
     // Use this for initialization
     void Start()
@@ -64,16 +84,26 @@ public class TurnManager : NetworkBehaviour {
 
             for (int i = 0; i < DataBase.buildingsList.Count; i++) {
                 if (DataBase.buildingsList[i].owner == "Server" && DataBase.buildingsList[i].employeesOwned > 0) {
-                    for (int ii = 0; ii < DataBase.buildingsList[i].employeesOwned; ii++) //sims through each employee of the building
+
+                    initialEmployeesOwned = DataBase.buildingsList[i].employeesOwned;
+
+                    for (int ii = 0; ii < initialEmployeesOwned; ii++) //sims through each employee of the building
                     {
                         ranNum = Random.Range(1, 101); // creates random number from 1 - 100
                         if (ranNum <= DataBase.buildingsList[i].leaveRate)
                         {
+                            buildingsList[i].employeesLost++;
+
                             DataBase.buildingsList[i].employeesOwned--;
                             DataBase.employeesOwned--;
-                            employeeModeEmployeesText.GetComponent<Text>().text = DataBase.buildingsList[i].employeesOwned.ToString();
+                            EmployeeMode.adjustedNumberOfEmployees--;
                             employeeModeBuildingInfoEmployeesText.GetComponent<Text>().text = DataBase.buildingsList[i].employeesOwned.ToString();
                             totalEmployeesText.GetComponent<Text>().text = DataBase.employeesOwned.ToString();
+
+                            DataBase.buildingsList[i].revenue -= DataBase.buildingsList[i].employeeCap;
+                            DataBase.totalRevenue -= DataBase.buildingsList[i].employeeCap;
+                            totalRevenueText.GetComponent<Text>().text = DataBase.totalRevenue.ToString();
+                            employeeModeRevenueText.GetComponent<Text>().text = DataBase.buildingsList[i].revenue.ToString();
                         }
                     }
                 }
@@ -87,20 +117,42 @@ public class TurnManager : NetworkBehaviour {
             {
                 if (DataBase.buildingsList[i].owner == "Client" && DataBase.buildingsList[i].employeesOwned > 0)
                 {
-                    for (int ii = 0; ii < DataBase.buildingsList[i].employeesOwned; ii++) //sims through each employee of the building
+
+                    initialEmployeesOwned = DataBase.buildingsList[i].employeesOwned;
+
+                    for (int ii = 0; ii < initialEmployeesOwned; ii++) //sims through each employee of the building
                     {
                         ranNum = Random.Range(1, 101); // creates random number from 1 - 100
                         if (ranNum <= DataBase.buildingsList[i].leaveRate)
                         {
+                            buildingsList[i].employeesLost++;
+
                             DataBase.buildingsList[i].employeesOwned--;
                             DataBase.employeesOwned--;
-                            employeeModeEmployeesText.GetComponent<Text>().text = DataBase.buildingsList[i].employeesOwned.ToString();
+                            EmployeeMode.adjustedNumberOfEmployees--;
                             employeeModeBuildingInfoEmployeesText.GetComponent<Text>().text = DataBase.buildingsList[i].employeesOwned.ToString();
                             totalEmployeesText.GetComponent<Text>().text = DataBase.employeesOwned.ToString();
+
+                            DataBase.buildingsList[i].revenue -= DataBase.buildingsList[i].employeeCap;
+                            DataBase.totalRevenue -= DataBase.buildingsList[i].employeeCap;
+                            totalRevenueText.GetComponent<Text>().text = DataBase.totalRevenue.ToString();
+                            employeeModeRevenueText.GetComponent<Text>().text = DataBase.buildingsList[i].revenue.ToString();
                         }
                     }
                 }
             }
         }
+
+        for (int i = 0; i < buildingsList.Count; i++) {
+            if (buildingsList[i].employeesLost > 0) {
+                updateText.GetComponent<Text>().text += (buildingsList[i].buildingName + " lost " + buildingsList[i].employeesLost + " employee(s) ");
+            }
+        }
+    }
+
+    public class Building
+    {
+        public string buildingName { get; set; }
+        public int employeesLost { get; set; }
     }
 }

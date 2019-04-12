@@ -14,6 +14,7 @@ public class EmployeeMode : NetworkBehaviour
     public GameObject employeeNumber;
     public GameObject buildingInfoEmployees;
     public GameObject buildingInfoEmployeeCap;
+    public GameObject buildingInfoLeaveRate;
     public GameObject employeePool;
     public GameObject doNotOwnScreenBuilding;
     public GameObject employeeCostText;
@@ -24,7 +25,7 @@ public class EmployeeMode : NetworkBehaviour
     private int employeeCost = 0;
     private bool addEmployee;
     private bool removeEmployee;
-    private int adjustedNumberOfEmployees = 0;
+    public static int adjustedNumberOfEmployees = 0;
     private int currentEmployeeCap; //employee cap of the selected building
     private int currentEmployeesOwned; //employees owned of the selected building
     private string localCurrentBuilding = null;
@@ -126,7 +127,6 @@ public class EmployeeMode : NetworkBehaviour
                         adjustedNumberOfEmployees = buildingsList[i].employeesOwned;
                         buildingInfoEmployees.GetComponent<Text>().text = buildingsList[i].employeesOwned.ToString();
                         buildingInfoEmployeeCap.GetComponent<Text>().text = buildingsList[i].employeeCap.ToString();
-
                         currentEmployeesOwned = buildingsList[i].employeesOwned;
                         currentEmployeeCap = buildingsList[i].employeeCap;
                     }
@@ -142,6 +142,7 @@ public class EmployeeMode : NetworkBehaviour
                 if (DataBase.currentBuilding == buildingsList[i].buildingName)
                 {
                     buildingRevenueText.GetComponent<Text>().text =  "$" + DataBase.buildingsList[i].revenue.ToString();
+                    buildingInfoLeaveRate.GetComponent<Text>().text = DataBase.buildingsList[i].leaveRate.ToString() + "%";
                 }
             }
 
