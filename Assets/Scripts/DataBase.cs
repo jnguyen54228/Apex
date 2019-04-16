@@ -27,6 +27,7 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
     public static bool employeeModeIsActivated = false;
     public static bool employeeModeCloseButton = false;
     public static Color32 employeeModePreviousColor;
+    public static bool newTurn = false;
 
     public static IList<Building> buildingsList = new List<Building>() {
 

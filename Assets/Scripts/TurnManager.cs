@@ -143,9 +143,12 @@ public class TurnManager : NetworkBehaviour {
             }
         }
 
-        for (int i = 0; i < buildingsList.Count; i++) {
+        updateText.GetComponent<Text>().text = ""; //clears the update text before adding everything to it
+
+        for (int i = 0; i < buildingsList.Count; i++) { //adds text to the update screen
             if (buildingsList[i].employeesLost > 0) {
                 updateText.GetComponent<Text>().text += (buildingsList[i].buildingName + " lost " + buildingsList[i].employeesLost + " employee(s) ");
+                buildingsList[i].employeesLost = 0;
             }
         }
     }

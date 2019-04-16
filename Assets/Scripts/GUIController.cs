@@ -9,6 +9,8 @@ public class GUIController : NetworkBehaviour {
     public GameObject employeeScreen;
     public GameObject winScreen;
     public GameObject loseScreen;
+    public GameObject updateScreen;
+    public GameObject hackingScreen;
 
 	// Use this for initialization
 	void Start () {
@@ -19,26 +21,41 @@ public class GUIController : NetworkBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        if (DataBase.newTurn == false)
+        {
+            updateScreen.SetActive(false);
+        }
         if (DataBase.serverWin == true)
         {
             if (isServer)
             {
+                updateScreen.SetActive(false);
                 winScreen.SetActive(true);
             }
             else
             {
+                updateScreen.SetActive(false);
                 loseScreen.SetActive(true);
             }
         }
-        else if (DataBase.clientWin == true) {
+        else if (DataBase.clientWin == true)
+        {
             if (isClient)
             {
+                updateScreen.SetActive(false);
                 winScreen.SetActive(true);
             }
-            else {
+            else
+            {
+                updateScreen.SetActive(false);
                 loseScreen.SetActive(true);
             }
+        }
+        else if (DataBase.newTurn == true)
+        {
+            updateScreen.SetActive(true);
         }
 	}
 
@@ -49,5 +66,9 @@ public class GUIController : NetworkBehaviour {
     public void CloseEmployeeScreen()
     {
         employeeScreen.SetActive(false);
+    }
+
+    public void CloseUpdateScreen() {
+        DataBase.newTurn = false;
     }
 }

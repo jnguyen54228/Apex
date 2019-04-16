@@ -138,6 +138,7 @@ public class PlayerController : NetworkBehaviour {
 
     [Command]
     void CmdUpdateTurnOnServer(int day, int newEmployeePool) {
+        DataBase.newTurn = true;
         DataBase.turns++;
         DataBase.day = day;
         dayText.GetComponent<Text>().text = DataBase.day.ToString();
@@ -181,6 +182,7 @@ public class PlayerController : NetworkBehaviour {
         if (!isServer)
         {
             //DataBase.cash += DataBase.totalRevenue;
+            DataBase.newTurn = true;
             DataBase.cash += DataBase.totalRevenue;
             cashText.GetComponent<Text>().text = DataBase.cash.ToString();
             DataBase.employeePool = newEmployeePool;
