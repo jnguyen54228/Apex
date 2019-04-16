@@ -19,7 +19,7 @@ public class TitleScreen : MonoBehaviour
 
     public void PlayButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Network");
     }
     public void OptionsButton()
     {
