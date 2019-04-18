@@ -26823,6 +26823,8 @@ MonoBehaviour:
   hackingScreen: {fileID: 1027546693}
   infiniteCashToggle: {fileID: 1480204541}
   infiniteEmployeesToggle: {fileID: 1241304942}
+  cashText: {fileID: 957264778}
+  employeePoolText: {fileID: 231894597}
 --- !u!1 &1539057761
 GameObject:
   m_ObjectHideFlags: 0

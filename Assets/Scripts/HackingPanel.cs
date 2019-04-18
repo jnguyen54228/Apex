@@ -9,6 +9,8 @@ public class HackingPanel : MonoBehaviour
     public GameObject hackingScreen;
     public GameObject infiniteCashToggle;
     public GameObject infiniteEmployeesToggle;
+    public GameObject cashText;
+    public GameObject employeePoolText;
 
     void Start()
     {
@@ -23,7 +25,13 @@ public class HackingPanel : MonoBehaviour
             hackingScreen.SetActive(true);
         }
         if (infiniteCashToggle.GetComponent<Toggle>().isOn == true) {
-
+            DataBase.cash = 999999999;
+            cashText.GetComponent<Text>().text = "$" + DataBase.cash.ToString();
+            DataBase.infinteCashActivated = true;
+        }
+        if (infiniteEmployeesToggle.GetComponent<Toggle>().isOn == true) {
+            DataBase.employeePool = 999999999;
+            employeePoolText.GetComponent<Text>().text = DataBase.employeePool.ToString();
         }
     }
 }

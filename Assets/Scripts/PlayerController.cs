@@ -41,12 +41,12 @@ public class PlayerController : NetworkBehaviour {
 	
 	void Update () {
 
-        if (DataBase.cash >= 1000 && isServer)
+        if (DataBase.cash >= 1000 && isServer && DataBase.infinteCashActivated == false)
         {
             DataBase.serverWin = true;
             RpcUpdateClientWinOnClient();
         }
-        else if (DataBase.cash >= 1000 && isClient)
+        else if (DataBase.cash >= 1000 && isClient && DataBase.infinteCashActivated == false)
         {
             DataBase.clientWin = true;
             CmdUpdateServerWinOnServer();
