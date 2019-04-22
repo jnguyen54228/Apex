@@ -44,4 +44,8 @@ public class PauseMenu : MonoBehaviour
     {
         Application.Quit();
     }
+    public void DisconnectButton()
+    {
+        SceneManager.LoadScene("Title Screen");
+    }
 }

@@ -13,6 +13,7 @@ public class NetworkManager_Custom : NetworkManager
 
     public void StartupHost()
     {
+        NetworkServer.Reset();
         SetPort();
         NetworkManager.singleton.StartHost();
     }
@@ -45,13 +46,6 @@ public class NetworkManager_Custom : NetworkManager
         Debug.Log("MenuButtons");
     }
 
-    void SetUpOtherSceneButtons()
-    {
-        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.RemoveAllListeners();
-        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.AddListener(NetworkManager.singleton.StopHost);
-        Debug.Log("OtherButtons");
-    }
-
     void OnEnable()
     {
         //Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
@@ -77,13 +71,6 @@ public class NetworkManager_Custom : NetworkManager
             Debug.Log("yadda");
         }
 
-
-        if (currentScene.name == "SampleScene")
-        {
-            Debug.Log("Ybabhdfhjad");
-            SetUpOtherSceneButtons();
-            
-        }
     }
 
 }
