@@ -25950,18 +25950,18 @@ MonoBehaviour:
   employeeModeButton: {fileID: 1672943841}
   purchaseScreen: {fileID: 1498482543}
   employeeScreen: {fileID: 96673521}
-  doNotOwnScreen: {fileID: 1048348279}
+  doNotOwnScreen: {fileID: 0}
   buildingName: {fileID: 395152438}
   employeeNumber: {fileID: 2130435507}
   buildingInfoEmployees: {fileID: 1421575437}
   buildingInfoEmployeeCap: {fileID: 1282845873}
-  employeePool: {fileID: 231894597}
-  doNotOwnScreenBuilding: {fileID: 1034807293}
-  employeeCostText: {fileID: 1413632657}
-  cash: {fileID: 957264778}
-  buildingRevenueText: {fileID: 1154376358}
-  totalRevenueText: {fileID: 297827861}
-  totalEmployeesOwned: {fileID: 1008672103}
+  employeePool: {fileID: 0}
+  doNotOwnScreenBuilding: {fileID: 0}
+  employeeCostText: {fileID: 0}
+  cash: {fileID: 0}
+  buildingRevenueText: {fileID: 0}
+  totalRevenueText: {fileID: 0}
+  totalEmployeesOwned: {fileID: 0}
 --- !u!1 &1539057761
 GameObject:
   m_ObjectHideFlags: 0

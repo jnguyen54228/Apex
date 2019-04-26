@@ -2,39 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using System;
 
-public class DataBase : MonoBehaviour {     //Class used for data shared across the game
-
-    public static int cash = 100;
-    public static int currentBuildingPrice;
-    public static string currentBuilding;
-    public static bool highlightBuildingTest = false;
-    public static bool EmployeeModeHighlightBuildingTest = false;
-    public static GameObject currentBuildingObject = null;
-    public static GameObject previousBuilding = null;
-    public static string turn = "server"; //the server gets the first turn of the game
-    public static bool serverTurnEnded = false;
-    public static bool clientTurnEnded = false;
-    public static int turns = 0; //total number of turns that have taken place; used to determine the current day
-    public static int day = 1;
-    public static bool serverBuildingPurchased = false;
-    public static bool clientBuildingPurchased = false;
-    public static bool serverWin = false; //determines whether server/client has won
-    public static bool clientWin = false;
-    public static int totalRevenue = 0;
-    public static int employeePool = 500;
-    public static int employeesOwned = 0;
-    public static bool employeeModeIsActivated = false;
-    public static bool employeeModeCloseButton = false;
-    public static Color32 employeeModePreviousColor;
-
+public class RevPerBuilding : NetworkBehaviour
+{
     public static IList<Building> buildingsList = new List<Building>() {
 
         new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 10,  //start-game building
-            employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 10, maxRevenue = 40},  
+            employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 10, maxRevenue = 40},
 
         new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 10,  //start-game building
-            employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 10, maxRevenue = 40}, 
+            employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 10, maxRevenue = 40},
 
         new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 10,  //start-game building
             employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 10, maxRevenue = 25},  //has more appeal in beginning because has more bang for your buck early on
@@ -67,6 +46,23 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
             employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 10, maxRevenue = 40}
     };
 
+    public static int Reven(string x, int mon)
+    {
+        for (int i = 0; i < buildingsList.Count; i++)
+        {
+            if (buildingsList[i].owner == x)
+            {
+                double L = buildingsList[i].maxRevenue - buildingsList[i].baseRevenue;
+                double D = 1 + (Math.Pow(Math.E, -(buildingsList[i].employeesOwned - (buildingsList[i].employeeCap/2))));
+                double buildRev = (L / D) + buildingsList[i].baseRevenue;
+   
+                mon += (int)buildRev;
+            }
+        }
+
+        return mon;
+    }
+
     public class Building
     {
         public string buildingName { get; set; }
@@ -87,6 +83,6 @@ public class DataBase : MonoBehaviour {     //Class used for data shared across 
 
         public int baseRevenue { get; set; }
 
-        public int maxRevenue { get; set;}
+        public int maxRevenue { get; set; }
     }
 }
