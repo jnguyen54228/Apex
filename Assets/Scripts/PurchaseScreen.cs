@@ -15,6 +15,9 @@ public class PurchaseScreen : NetworkBehaviour //Class used for displaying the b
     public GameObject employeeCapText;
     public GameObject employeesOwnedText;
 
+    public GameObject easterEgg;
+    public GameObject moviePanel;
+
 
     public static IList<Building> buildingsList = new List<Building>() {
 
@@ -87,11 +90,17 @@ public class PurchaseScreen : NetworkBehaviour //Class used for displaying the b
                         employeeCapText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeeCap).ToString();
                         employeesOwnedText.GetComponent<Text>().text = (DataBase.buildingsList[i].employeesOwned).ToString();
                         buildingInfo.SetActive(true);
+
+                        if (DataBase.buildingsList[i].buildingName == "Movie Theater")
+                        {
+                            easterEgg.SetActive(true);
+                        }
                     }
                     else
                     {
                         buildingInfo.SetActive(false);
-                    }
+                    easterEgg.SetActive(false);
+                }
 
                     buildingPrice.GetComponent<Text>().text = "$" + buildingsList[i].buildingPrice;
                     buildingRevenue.GetComponent<Text>().text = "$" + buildingsList[i].revenue;
