@@ -9,29 +9,37 @@ public class Leaderboards : NetworkBehaviour
     private int serverBuildingsOwned;
     private int clientBuildingsOwned;
 
-    public GameObject leaderboardPanel;
-    public GameObject mostBuildingsOwned;
-    public GameObject mostEmployeesHired;
-    public GameObject mostRevenue;
-
     void Update()
     {
         if (isServer)
         {
+            serverBuildingsOwned = 0;
+
             for (int i = 0; i < DataBase.buildingsList.Count; i++)
             {
-                if (DataBase.buildingsList[i].owner == "Server") {
+                if (DataBase.buildingsList[i].owner == "Server")
+                {
                     serverBuildingsOwned++;
                 }
             }
 
-            if (serverBuildingsOwned > PlayerPrefs.GetInt("MostBuildingsOwned", 0)) {
+            if (serverBuildingsOwned > PlayerPrefs.GetInt("MostBuildingsOwned", 0)) //checks if new record for buildings owned has been reached
+            {
                 PlayerPrefs.SetInt("MostBuildingsOwned", serverBuildingsOwned);
-                mostBuildingsOwned.GetComponent<Text>().text = PlayerPrefs.GetInt("MostBuildingsOwned", 0).ToString();
+            }
+
+            if (DataBase.employeesOwned > PlayerPrefs.GetInt("MostEmployeesHired", 0)) { //checks if new record for employees hired has been reached
+                PlayerPrefs.SetInt("MostEmployeesHired", DataBase.employeesOwned);
+            }
+
+            if (DataBase.totalRevenue > PlayerPrefs.GetInt("MostRevenue", 0)) { //checks if new record for revenue has been reached
+                PlayerPrefs.SetInt("MostRevenue", DataBase.totalRevenue);
             }
         }
         else if (!isServer)
         {
+            clientBuildingsOwned = 0;
+
             for (int i = 0; i < DataBase.buildingsList.Count; i++)
             {
                 if (DataBase.buildingsList[i].owner == "Client")
@@ -43,12 +51,15 @@ public class Leaderboards : NetworkBehaviour
             if (clientBuildingsOwned > PlayerPrefs.GetInt("MostBuildingsOwned", 0))
             {
                 PlayerPrefs.SetInt("MostBuildingsOwned", clientBuildingsOwned);
-                mostBuildingsOwned.GetComponent<Text>().text = PlayerPrefs.GetInt("MostBuildingsOwned", 0).ToString();
+            }
+
+            if (DataBase.employeesOwned > PlayerPrefs.GetInt("MostEmployeesHired", 0)) { //checks if new record for employees hired has been reached
+                PlayerPrefs.SetInt("MostEmployeesHired", DataBase.employeesOwned);
+            }
+
+            if (DataBase.totalRevenue > PlayerPrefs.GetInt("MostRevenue", 0)) { //checks if new record for revenue has been reached
+                PlayerPrefs.SetInt("MostRevenue", DataBase.totalRevenue);
             }
         }
-    }
-
-    public void OpenLeaderboard() {
-        leaderboardPanel.SetActive(true);
     }
 }
