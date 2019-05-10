@@ -9,15 +9,22 @@ public class BrightnessAdjuster : MonoBehaviour
     public GameObject brightnessSlider;
 
     // Start is called before the first frame update
-    void Start() { 
-
+    void Start() {
+        brightnessSlider.GetComponent<Slider>().value = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
         Color color = brightnessPanel.GetComponent<Image>().color;
-        color.a = brightnessSlider.GetComponent<Slider>().value;
+
+        if (brightnessSlider.GetComponent<Slider>().value > 0.2)
+        {
+            color.a = 1 - brightnessSlider.GetComponent<Slider>().value;
+        }
+        else {
+            //nothing
+        }
 
         brightnessPanel.GetComponent<Image>().color = color;
     }
