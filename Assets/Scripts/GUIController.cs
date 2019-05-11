@@ -34,7 +34,7 @@ public class GUIController : NetworkBehaviour {
                 updateScreen.SetActive(false);
                 winScreen.SetActive(true);
             }
-            else
+            else if(!isServer)
             {
                 updateScreen.SetActive(false);
                 loseScreen.SetActive(true);
@@ -42,12 +42,12 @@ public class GUIController : NetworkBehaviour {
         }
         else if (DataBase.clientWin == true)
         {
-            if (isClient)
+            if (!isServer)
             {
                 updateScreen.SetActive(false);
                 winScreen.SetActive(true);
             }
-            else
+            else if(isServer)
             {
                 updateScreen.SetActive(false);
                 loseScreen.SetActive(true);

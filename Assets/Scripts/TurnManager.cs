@@ -54,14 +54,14 @@ public class TurnManager : NetworkBehaviour {
     void Start()
     {
         waitPanel.SetActive(false);
-
     }
 	
 	// Update is called once per frame
 	void Update () {
 
         if (isServer) {
-            if (DataBase.clientWin == true) {
+            if (DataBase.clientWin == true || DataBase.serverWin == true) {
+
                 waitPanel.SetActive(false);
             }
             else if (DataBase.turn == "server")    //if the it's the server's turn on the server's computer,                                        
@@ -76,7 +76,7 @@ public class TurnManager : NetworkBehaviour {
         }
         else if (!isServer)
         {
-            if (DataBase.serverWin == true)
+            if (DataBase.serverWin == true || DataBase.clientWin == true)
             {
                 waitPanel.SetActive(false);
             }
