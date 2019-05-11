@@ -10,24 +10,38 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
     public GameObject totalRevenueText;
     public GameObject purchaseButton;
     public GameObject purchaseButtonText;
-    public GameObject buildingInfo;
-    public GameObject employeeCapText;
-    public GameObject employeesOwnedText;
 
     public static IList<Building> buildingsList = new List<Building>() {
 
         new Building(){ buildingName = "Office Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
         new Building(){ buildingName = "Office Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Office Building 3", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
         new Building(){ buildingName = "Convenience Store 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
         new Building(){ buildingName = "Convenience Store 2", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
+        new Building(){ buildingName = "Convenience Store 3", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
         new Building(){ buildingName = "Apartment Building 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
         new Building(){ buildingName = "Apartment Building 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Apartment Building 3", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
         new Building(){ buildingName = "Trade Center 1", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35, employeeCap = 15, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 35, leaveRate = 5},
         new Building(){ buildingName = "Trade Center 2", buildingBought = false, buildingPrice = 70, owner = "none", revenue = 35, employeeCap = 15, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 35, leaveRate = 5},
-        new Building(){ buildingName = "Club", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 50, leaveRate = 5},
-        new Building(){ buildingName = "Super Market", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
-        new Building(){ buildingName = "Church", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
-        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5}
+        new Building(){ buildingName = "Club 1", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 50, leaveRate = 5},
+        new Building(){ buildingName = "Club 2", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 50, leaveRate = 5},
+        new Building(){ buildingName = "Super Market 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Super Market 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Church 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
+        new Building(){ buildingName = "Church 2", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
+        new Building(){ buildingName = "Movie Theater", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Blockbuster 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Blockbuster 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "S-Bank", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 50, leaveRate = 5},
+        new Building(){ buildingName = "Cake Shop 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Cake Shop 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Post Office 1", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
+        new Building(){ buildingName = "Post Office 2", buildingBought = false, buildingPrice = 30, owner = "none", revenue = 15, employeeCap = 5, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 15, leaveRate = 5},
+        new Building(){ buildingName = "Mall", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 50, leaveRate = 5},
+        new Building(){ buildingName = "H-Tower", buildingBought = false, buildingPrice = 100, owner = "none", revenue = 50, employeeCap = 20, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 50, leaveRate = 5},
+        new Building(){ buildingName = "Parking Garage 1", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5},
+        new Building(){ buildingName = "Parking Garage 2", buildingBought = false, buildingPrice = 50, owner = "none", revenue = 25, employeeCap = 10, employeesOwned = 0, daysWithNoEmployees = 0, baseRevenue = 25, leaveRate = 5}
     };
 
     // Use this for initialization
@@ -52,7 +66,13 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
             if (DataBase.currentBuilding == buildingsList[c].buildingName && buildingsList[c].buildingBought == true) {
                 purchaseButton.GetComponent<Button>().interactable = false;
                 purchaseButton.GetComponent<Image>().color = Color.gray;
-                purchaseButtonText.GetComponent<Text>().text = DataBase.buildingsList[c].owner; //displays name of owner of the building
+
+                if (DataBase.buildingsList[c].owner == "Server") { //displays name of owner of the building
+                    purchaseButtonText.GetComponent<Text>().text = "Player 1";
+                }
+                else if (DataBase.buildingsList[c].owner == "Client") {
+                    purchaseButtonText.GetComponent<Text>().text = "Player 2";
+                }
             }
             else if(DataBase.currentBuilding == buildingsList[c].buildingName && buildingsList[c].buildingBought == false)
             {
@@ -72,10 +92,6 @@ public class PurchaseButton : NetworkBehaviour //Class that manages the purchase
 
             for (int ii = 0; ii < buildingsList.Count; ii++) {
                 if (DataBase.currentBuilding == buildingsList[ii].buildingName) {
-
-                    employeeCapText.GetComponent<Text>().text = (DataBase.buildingsList[ii].employeeCap).ToString();   //activates buildinginfo box
-                    employeesOwnedText.GetComponent<Text>().text = (DataBase.buildingsList[ii].employeesOwned).ToString();
-                    buildingInfo.SetActive(true);
 
                     DataBase.buildingsList[ii].buildingBought = true; //tells database that the building is purchased so that
                     buildingsList[ii].buildingBought = true;          //the player controller can send it to the other computers database

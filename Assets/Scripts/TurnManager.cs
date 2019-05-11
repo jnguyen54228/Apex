@@ -10,16 +10,33 @@ public class TurnManager : NetworkBehaviour {
 
         new Building(){ buildingName = "Office Building 1", employeesLost = 0},
         new Building(){ buildingName = "Office Building 2", employeesLost = 0},
+        new Building(){ buildingName = "Office Building 3", employeesLost = 0},
         new Building(){ buildingName = "Convenience Store 1", employeesLost = 0},
         new Building(){ buildingName = "Convenience Store 2", employeesLost = 0},
+        new Building(){ buildingName = "Convenience Store 3", employeesLost = 0},
         new Building(){ buildingName = "Apartment Building 1", employeesLost = 0},
         new Building(){ buildingName = "Apartment Building 2", employeesLost = 0},
+        new Building(){ buildingName = "Apartment Building 3", employeesLost = 0},
         new Building(){ buildingName = "Trade Center 1", employeesLost = 0},
         new Building(){ buildingName = "Trade Center 2", employeesLost = 0},
-        new Building(){ buildingName = "Club", employeesLost = 0},
-        new Building(){ buildingName = "Super Market", employeesLost = 0},
-        new Building(){ buildingName = "Church", employeesLost = 0},
-        new Building(){ buildingName = "Movie Theater", employeesLost = 0}
+        new Building(){ buildingName = "Club 1", employeesLost = 0},
+        new Building(){ buildingName = "Club 2", employeesLost = 0},
+        new Building(){ buildingName = "Super Market 1", employeesLost = 0},
+        new Building(){ buildingName = "Super Market 2", employeesLost = 0},
+        new Building(){ buildingName = "Church 1", employeesLost = 0},
+        new Building(){ buildingName = "Church 2", employeesLost = 0},
+        new Building(){ buildingName = "Movie Theater", employeesLost = 0},
+        new Building(){ buildingName = "Blockbuster 1", employeesLost = 0},
+        new Building(){ buildingName = "Blockbuster 2", employeesLost = 0},
+        new Building(){ buildingName = "S-Bank", employeesLost = 0},
+        new Building(){ buildingName = "Cake Shop 1", employeesLost = 0},
+        new Building(){ buildingName = "Cake Shop 2", employeesLost = 0},
+        new Building(){ buildingName = "Post Office 1", employeesLost = 0},
+        new Building(){ buildingName = "Post Office 2", employeesLost = 0},
+        new Building(){ buildingName = "Mall", employeesLost = 0},
+        new Building(){ buildingName = "H-Tower", employeesLost = 0},
+        new Building(){ buildingName = "Parking Garage 1", employeesLost = 0},
+        new Building(){ buildingName = "Parking Garage 2", employeesLost = 0}
     };
 
     public GameObject waitPanel;
